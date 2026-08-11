@@ -65,7 +65,7 @@ Ruta resumida:
 - Consulta a DB Policia: [Oracle.sql](sql/2.Oracle.sql)
 
 
-## 8. Validaciones funcionales
+## 7. Validaciones funcionales
 
 - [ ] La capa puede activarse y desactivarse.
 - [ ] El detalle del punto muestra los campos definidos.
@@ -76,7 +76,7 @@ Ruta resumida:
 - [ ] La leyenda y los colores corresponden a la capa.
 - [ ] No se presentan errores al cargar la información.
 
-## 9. Validaciones de datos
+## 8. Validaciones de datos
 
 - [ ] La fecha de actualización de Athena es la esperada.
 - [ ] Los filtros de negocio son equivalentes.
@@ -85,7 +85,7 @@ Ruta resumida:
 - [ ] Una muestra de registros coincide entre ambas fuentes.
 - [ ] La cantidad mostrada en el mapa coincide con Athena.
 
-## 10. Criterios de aceptación
+## 9. Criterios de aceptación
 
 La prueba es exitosa cuando:
 
@@ -96,4 +96,6 @@ La prueba es exitosa cuando:
 4. La cantidad del mapa coincide con el resultado esperado en Athena.
 5. No existen diferencias sin justificación documentada.
 
+
+## 10. Imagen guia de visualizacion 
 
