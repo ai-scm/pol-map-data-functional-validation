@@ -1,69 +1,95 @@
-# Nombre de la capa
+# Gescov
 
 ## 1. Identificación
+
+<p align="center">
 
 | Campo | Valor |
 |---|---|
 | ID | POL-MAPA-001 |
-| Módulo | Nombre del módulo |
-| Capa | Nombre visible de la capa |
+| Módulo | Fuentes Internas |
+| Capa | Capa Gescov |
 | Frecuencia de actualización | Diaria |
 | Hora de carga del Data Lake | 04:00 a. m. |
 | Última actualización del caso | AAAA-MM-DD |
 
+</p>
+
 ## 2. Descripción
 
-Explicación corta de la información que representa la capa y cuál es
-su propósito dentro del mapa.
+Esta capa corresponde al Sistema de Gestión de Comités de Vigilancia, donde se puede consultar la información georreferenciada de los planes ejecutados durante los últimos 15 días. 
 
 ## 3. Ruta de acceso
 
-1. Ingresar al sistema.
-2. Abrir el módulo `[nombre]`.
-3. Seleccionar el submódulo `[nombre]`.
-4. Ingresar a `[opción]`.
+1. Ingresar al aplicativo `IAPOL`.
+2. Abrir el módulo `Anticipación a Fenómenos de Seguridad`.
+3. Seleccionar el submódulo `Mapa de Anticipación a Fenómenos de Seguridad`.
+4. Ingresar a `Mapa`.
 
-Ruta resumida:
+- Ruta resumida:
 
-`Menú principal > Módulo > Submódulo > Mapa`
+`Menú principal > Anticipación a Fenómenos de Seguridad > Mapa de Anticipación a Fenómenos de Seguridad`
 
 ## 4. Activación de la capa
 
-1. Abrir el panel de capas.
-2. Localizar la categoría `[nombre]`.
-3. Activar la capa `[nombre]`.
+1. Seleccionar `Sigla y/o unidad hija`
+2. Abrir el modulo de `fuentes internas`.
+3. Activar la capa `Gescov`.
 4. Aplicar los filtros requeridos.
+
+<p align="center">
+  <img src="16i.png" width="500">
+</p>
 
 ## 5. Parámetros y filtros de prueba
 
+<p align="center">
+
 | Parámetro | Valor utilizado | Obligatorio |
 |---|---|---|
-| Fecha inicial | AAAA-MM-DD | Sí |
-| Fecha final | AAAA-MM-DD | Sí |
-| Departamento | Todos | No |
-| Municipio | Todos | No |
+| Sigla | Todos | Si |
+| Unidades hijas | Todos | No |
+</p>
 
 ## 6. Fuente de datos
 
 ### Base de datos de la Policía
 
-- Sistema o base de datos:
-- Esquema:
-- Tabla o vista:
-- Campo de fecha:
-- Llave del registro:
+- Sistema o base de datos: DISEC
+- Esquema: usr_disec
+- Tabla o vista: v_evos_planes
+- Query Oracle: 
+
+``` sql
+SELECT * FROM "pon-prod-raw-disec"."usr_disec.v_evos_planes"
+WHERE estado_cumplimiento = 'Cumple' 
+AND sigla_unidad = 'MEBOG'
+AND fecha_inicio_plan > timestamp '2026-07-12 00:00:00';
+```
+
+<p align="center">
+<img src="23i.png" width="300">
 
 ### Data Lake en Athena
 
-- Catálogo:
-- Base de datos:
-- Tabla o vista:
-- Partición utilizada:
-- Campo de fecha:
-- Llave del registro:
+- DataSource: AwsDataCatalog
+- DataBase: pon-prod-raw-disec
+- Table: usr_disec.v_evos_planes
+- Query: 
+
 - Consulta Athena: [athena.sql](sql/1.Athena.sql)
 - Consulta a DB Policia: [Oracle.sql](sql/2.Oracle.sql)
 
+``` sql
+SELECT * FROM "pon-prod-raw-disec"."usr_disec.v_evos_planes"
+WHERE estado_cumplimiento = 'Cumple' 
+AND sigla_unidad = 'MEBOG'
+AND fecha_inicio_plan > timestamp '2026-07-12 00:00:00';
+```
+
+<p align="center">
+<img src="17i.png" width="300">
+</p>                                     
 
 ## 7. Validaciones funcionales
 
@@ -72,7 +98,6 @@ Ruta resumida:
 - [ ] El nombre y la descripción son correctos.
 - [ ] Los filtros modifican la información mostrada.
 - [ ] Los puntos aparecen en el área geográfica esperada.
-
 - [ ] La leyenda y los colores corresponden a la capa.
 - [ ] No se presentan errores al cargar la información.
 
@@ -97,5 +122,5 @@ La prueba es exitosa cuando:
 5. No existen diferencias sin justificación documentada.
 
 
-## 10. Imagen guia de visualizacion 
-
+## 10. Conclusión
+La capa tiene una diferencia de 0 registros entre el contador de mapas (9715) y la consulta en athena (9715). La consulta en oracle arroja (18956) registros.
