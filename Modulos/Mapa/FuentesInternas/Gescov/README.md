@@ -61,7 +61,7 @@ Esta capa corresponde al Sistema de Gestión de Comités de Vigilancia, donde se
 - Query Oracle: 
 
 ``` sql
-SELECT * FROM "pon-prod-raw-disec"."usr_disec.v_evos_planes"
+SELECT * FROM "usr_disec"."v_evos_planes"
 WHERE estado_cumplimiento = 'Cumple' 
 AND sigla_unidad = 'MEBOG'
 AND fecha_inicio_plan > timestamp '2026-07-12 00:00:00';
