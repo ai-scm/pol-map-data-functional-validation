@@ -1,4 +1,4 @@
-# MTRS
+# SIRAP
 
 ## 1. Identificación
 
@@ -8,7 +8,7 @@
 |---|---|
 | ID | POL-MAPA-001 |
 | Módulo | Fuentes Internas |
-| Capa | Capa MTRS |
+| Capa | Capa SIRAP |
 | Frecuencia de actualización | Diaria |
 | Hora de carga del Data Lake | 04:00 a. m. |
 | Última actualización del caso | AAAA-MM-DD |
@@ -17,7 +17,7 @@
 
 ## 2. Descripción
 
-Esta capa hace referencia a la Mesa Técnica de Riesgos Sociales, que ofrece datos georreferenciados correspondientes al último año.  
+Esta capa pertenece al Sistema de Información para el Registro de Actuaciones Policiales y ofrece datos georreferenciados de los últimos 12 meses. 
 
 ## 3. Ruta de acceso
 
@@ -34,11 +34,11 @@ Esta capa hace referencia a la Mesa Técnica de Riesgos Sociales, que ofrece dat
 
 1. Seleccionar `Sigla y/o unidad hija`
 2. Abrir el modulo de `fuentes internas`.
-3. Activar la capa `MTRS`.
+3. Activar la capa `SIRAP`.
 4. Aplicar los filtros requeridos.
 
 <p align="center">
-  <img src="4i.png" width="500">
+  <img src="22i.png" width="500">
 </p>
 
 ## 5. Parámetros y filtros de prueba
@@ -55,35 +55,38 @@ Esta capa hace referencia a la Mesa Técnica de Riesgos Sociales, que ofrece dat
 
 ### Base de datos de la Policía
 
-- Sistema o base de datos: DISEC
+- Sistema o base de datos: GEOPOL
 - Esquema: USR_DISEC
 - Tabla o vista: V_MTRS_RIESGO_UBICACION
 - Consulta a DB Policia: [Oracle.sql](sql/2.Oracle.sql)
 - Query Oracle: 
 
 ``` sql
-SELECT * FROM USR_DISEC.V_MTRS_RIESGO_UBICACION WHERE sigla = 'MEBOG';
+SELECT COUNT(*) 
+    FROM  USR_PMU.ACTIVIDADES 
+    WHERE unidad = 'MEBOG';
 ```
 
 <p align="center">
-<img src="25i.png" width="300">
+<img src="20i.png" width="300">
 
 
 ### Data Lake en Athena
 
 - DataSource: AwsDataCatalog
-- DataBase: pon-prod-raw-disec
-- Table: usr_disec.v_mtrs_riesgo_ubicacion
+- DataBase: pon-prod-raw-geopol
+- Table: raw_geopol_usr_pmu_actividades
 - Consulta Athena: [athena.sql](sql/1.Athena.sql)
 - Query: 
 
 ``` sql
-SELECT * FROM "pon-prod-raw-disec"."usr_disec.v_mtrs_riesgo_ubicacion"
-where sigla = 'MEBOG';
+SELECT *
+    FROM "pon-prod-raw-geopol"."raw_geopol_usr_pmu_actividades"
+    WHERE unidad = 'MEBOG'
 ```
 
 <p align="center">
-<img src="19i.png" width="300">
+<img src="21i.png" width="300">
 </p>                                     
 
 ## 7. Validaciones funcionales
@@ -118,4 +121,4 @@ La prueba es exitosa cuando:
 
 
 ## 10. Conclusión
-La capa tiene una diferencia de 6 registros entre el contador de mapas (477) y la consulta en athena (471). La consulta en Oracle arroja (471) registros coincidiendo con la consulta en athena.
+La capa tiene una diferencia de 148 registros entre el contador de mapas (10441) y la consulta en athena (10589). La consulta en oracle muestra (10589).

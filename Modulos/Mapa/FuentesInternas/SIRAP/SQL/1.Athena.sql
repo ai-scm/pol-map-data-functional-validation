@@ -4,7 +4,7 @@
 -- Reglas aplicadas:
 -- ============================================================
 
--- QUERY PARA OBTENER LOS DATOS DE LA TABLA DE GESCOV
-SELECT * 
-    FROM "pon-prod-raw-disec"."usr_disec.v_mtrs_riesgo_ubicacion"
-        where sigla = 'MEBOG';
+-- QUERY PARA OBTENER LOS DATOS DE LA TABLA DE SIRAP
+SELECT *
+    FROM "pon-prod-raw-geopol"."raw_geopol_usr_pmu_actividades"
+    WHERE unidad = 'MEBOG'

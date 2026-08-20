@@ -4,5 +4,7 @@
 -- Reglas aplicadas:
 -- ============================================================
 
--- QUERY PARA OBTENER LOS DATOS DE LA TABLA DE GESCOV
-SELECT * FROM USR_DISEC.V_MTRS_RIESGO_UBICACION WHERE sigla = 'MEBOG';
+-- QUERY PARA OBTENER LOS DATOS DE LA TABLA DE SIRAP
+SELECT COUNT(*) 
+    FROM  USR_PMU.ACTIVIDADES 
+    WHERE unidad = 'MEBOG';
