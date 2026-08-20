@@ -58,6 +58,7 @@ Esta capa corresponde al Sistema de Gestión de Comités de Vigilancia, donde se
 - Sistema o base de datos: DISEC
 - Esquema: usr_disec
 - Tabla o vista: v_evos_planes
+- Consulta a DB Policia: [Oracle.sql](sql/2.Oracle.sql)
 - Query Oracle: 
 
 ``` sql
@@ -70,15 +71,17 @@ AND fecha_inicio_plan > timestamp '2026-07-12 00:00:00';
 <p align="center">
 <img src="23i.png" width="300">
 
+
 ### Data Lake en Athena
 
 - DataSource: AwsDataCatalog
 - DataBase: pon-prod-raw-disec
 - Table: usr_disec.v_evos_planes
+- Consulta Athena: [athena.sql](sql/1.Athena.sql)
 - Query: 
 
-- Consulta Athena: [athena.sql](sql/1.Athena.sql)
-- Consulta a DB Policia: [Oracle.sql](sql/2.Oracle.sql)
+
+
 
 ``` sql
 SELECT * FROM "pon-prod-raw-disec"."usr_disec.v_evos_planes"
