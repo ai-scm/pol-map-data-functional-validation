@@ -1,20 +1,75 @@
 # POL Map Validation
 
-Repositorio de validación de datos para las capas del mapa del proyecto Policía.
+Repositorio de documentación y validación de la aplicación del proyecto Policía.
 
-## Objetivo
+El repositorio tiene dos frentes de trabajo:
 
-Centralizar  los casos de prueba necesarios para validar los datos de la policia vs los mostrados en los componentes:
+1. **Documentación funcional de los módulos** de la aplicación, organizada en la carpeta `Home/`.
+2. **Validación de datos de las capas del mapa**, organizada en la carpeta `Modulos/`.
+
+## 1. Documentación de módulos (`Home/`)
+
+`Home/` es la raíz de la documentación funcional. Contiene un índice general con la checklist maestra de todos los módulos del menú y una carpeta por cada módulo.
+
+### Objetivo
+
+Documentar cada módulo y submódulo de la aplicación y llevar el control de avance mediante una checklist con estado, responsable y fecha de actualización.
+
+### Estructura de `Home/`
+
+```text
+Home/
+├── README.md                         # Índice general y checklist maestra de módulos
+├── plantilla-modulo.md               # Plantilla base para documentar un módulo
+│
+├── 01_motor-de-aprendizaje/
+│   └── README.md
+├── 02_certificaciones-aws/
+│   └── README.md
+├── 03_administracion/
+│   └── README.md
+├── ...
+└── 19_tableros-de-monitoreo/
+    └── README.md
+```
+
+- Cada carpeta de módulo usa el formato `<numero>_<nombre-modulo>`.
+- El número corresponde al **orden real del menú** de la aplicación, no al orden alfabético.
+- Cada módulo documenta sus submódulos en su propio `README.md`.
+
+### Estados de documentación
+
+| Estado | Descripción |
+|---|---|
+| `Faltante` | La documentación aún no se ha iniciado. |
+| `En progreso` | La documentación se está redactando. |
+| `Verificación` | La documentación está redactada y pendiente de revisión. |
+| `Terminado` | La documentación está completa y verificada. |
+
+### Contenido mínimo de cada módulo
+
+1. Identificación (orden en el menú, nombre, ruta de acceso, estado, responsable, fecha).
+2. Descripción.
+3. Lista de submódulos.
+4. Checklist de submódulos con estado, responsable, fecha de actualización y casilla de documentado.
+5. Progreso del módulo.
+6. Hallazgos y notas.
+
+## 2. Validación de capas del mapa (`Modulos/`)
+
+La carpeta `Modulos/` centraliza los casos de prueba para validar los datos de la Policía frente a los mostrados en las capas del mapa.
+
+### Objetivo
+
+Validar:
 
 - La navegación hasta cada funcionalidad del mapa.
 - La activación y visualización de las capas.
-- validacion de filtros y controles.
+- Los filtros y controles.
 - La información representada por cada capa.
 - La consistencia entre la base de datos de la Policía, el Data Lake en Athena y los datos mostrados en el mapa.
 
-## Flujo de validación
-
-Cada capa debe validarse en los siguientes niveles:
+### Flujo de validación
 
 ```text
 Base de datos de la Policía → Data Lake en Athena → Capa del mapa
@@ -24,61 +79,13 @@ Base de datos de la Policía → Data Lake en Athena → Capa del mapa
 2. **Athena:** información cargada diariamente en el Data Lake.
 3. **Mapa:** datos finalmente consultados y representados por la aplicación.
 
-
-## Alcance
-
-El repositorio contiene, para cada capa:
-
-- Módulo y submódulo al que pertenece.
-- Descripción funcional.
-- Ruta de acceso desde el menú.
-- Pasos para activar la capa.
-- Filtros y parámetros disponibles.
-- Validaciones funcionales.
-- Validaciones de calidad de datos.
-- Consulta SQL para Athena.
-- Consulta SQL para la base de datos de la Policía.
-- Criterios de aceptación.
-- Imagen guia de visualizacion de las capas.
-
-## Estructura del repositorio
+### Estructura de una capa
 
 ```text
-pol-map-validation/
-├── README.md
-├── catalogo-capas.md
-├── convenciones.md
-│
-├── modulos/
-│   └── nombre-modulo/
-│       └── nombre-submodulo/
-│           └── nombre-capa/
-│               ├── README.md
-│               └── sql/
-│                   ├── athena.sql
-│                   └── policia.sql
-│               
-│
-└── plantilla-capa.md
-```
-
-## Organización
-
-La documentación sigue la jerarquía funcional de la aplicación:
-
-```text
-Módulo → Submódulo → Capa
-```
-
-Cada carpeta de capa representa un caso de prueba independiente.
-
-### Ejemplo
-
-```text
-modulos/
-└── mapa/
-    └── seguridad-ciudadana/
-        └── homicidios/
+Modulos/
+└── nombre-modulo/
+    └── nombre-submodulo/
+        └── nombre-capa/
             ├── README.md
             ├── sql/
             │   ├── athena.sql
@@ -87,7 +94,9 @@ modulos/
                 └── README.md
 ```
 
-## Archivos de una capa
+Cada carpeta de capa representa un caso de prueba independiente.
+
+### Archivos de una capa
 
 | Archivo | Descripción |
 |---|---|
@@ -96,7 +105,7 @@ modulos/
 | `sql/policia.sql` | Consulta equivalente sobre la base de datos de la Policía. |
 | `evidencias/README.md` | Resultados, diferencias y hallazgos de las ejecuciones. |
 
-## Validaciones funcionales
+### Validaciones funcionales
 
 Como mínimo, cada capa debe comprobar:
 
@@ -109,7 +118,7 @@ Como mínimo, cada capa debe comprobar:
 - Que la información mostrada en el detalle corresponde al registro seleccionado.
 - Que no aparecen registros fuera del alcance definido.
 
-## Validaciones de datos
+### Validaciones de datos
 
 Como mínimo, se debe validar:
 
@@ -124,7 +133,7 @@ Como mínimo, se debe validar:
 - Muestra de registros entre Policía y Athena.
 - Cantidad consultada en Athena frente a la mostrada en el mapa.
 
-## Consideraciones para comparar las fuentes
+### Consideraciones para comparar las fuentes
 
 La base de datos de la Policía puede continuar recibiendo información después de la carga diaria del Data Lake. Por lo tanto, una diferencia de cantidades no implica necesariamente un error.
 
@@ -139,7 +148,7 @@ Antes de comparar se debe verificar:
 
 Si la carga aplica exclusiones, agrupaciones, homologaciones o eliminación de duplicados, estas reglas deben documentarse en el `README.md` de la capa.
 
-## Criterios generales de aceptación
+### Criterios generales de aceptación
 
 Una capa se considera aprobada cuando:
 
@@ -151,7 +160,7 @@ Una capa se considera aprobada cuando:
 6. El mapa representa correctamente la información consultada en Athena.
 7. No existen diferencias sin justificación documentada.
 
-## Registro de resultados
+### Registro de resultados
 
 Cada ejecución debe registrar como mínimo:
 
@@ -176,6 +185,8 @@ Los nombres de carpetas y archivos deben:
 - Evitar espacios, tildes y caracteres especiales.
 - Utilizar el nombre funcional visible en la aplicación.
 
+Para las carpetas de módulo en `Home/` se antepone el número de orden del menú: `<numero>_<nombre-modulo>`.
+
 Ejemplos:
 
 ```text
@@ -183,6 +194,8 @@ seguridad-ciudadana
 delitos-materializados
 policia-comunitaria
 consulta-integrada
+01_motor-de-aprendizaje
+02_certificaciones-aws
 ```
 
 ## Manejo de información sensible
@@ -201,4 +214,4 @@ Los valores sensibles deberán manejarse mediante los mecanismos de configuraci�
 
 ## Estado del repositorio
 
-Repositorio en construcción. Las capas se incorporarán progresivamente de acuerdo con los módulos y submódulos disponibles en el proyecto Policía.
+Repositorio en construcción. La documentación de módulos en `Home/` y las capas del mapa en `Modulos/` se incorporarán progresivamente de acuerdo con los módulos y submódulos disponibles en el proyecto Policía.
