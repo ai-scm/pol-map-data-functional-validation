@@ -1,5 +1,9 @@
 # Última actualización de datos migrados
 
+## Documentación técnica
+
+La estructura común, el contrato de datos requerido y los puntos que no pudieron confirmarse sin el análisis están en [`documentacion-tecnica.md`](documentacion-tecnica.md).
+
 ## Objetivo
 
 Controla la antigüedad de actualización de tablas migradas, agrupadas por dominio o sistema.
@@ -22,11 +26,11 @@ Todas las hojas observadas incluyen el filtro `Tabla`, una tabla de detalle y el
 
 ## Validaciones funcionales del submódulo
 
-- [ ] Las cinco hojas pueden activarse y conservan el contexto de dominio correcto.
-- [ ] El filtro `Tabla` restringe la tabla y el gráfico.
-- [ ] La antigüedad se actualiza de forma coherente con la fecha/hora actual y la zona horaria definida.
-- [ ] Los colores y umbrales de antigüedad coinciden con las reglas operativas.
-- [ ] No aparecen tablas pertenecientes a otro dominio.
+- [x] Las cinco hojas pueden activarse y conservan el contexto visual de dominio. — Aprobado visualmente el 2026-09-04; el contenido requiere conciliación.
+- [ ] El filtro `Tabla` restringe la tabla y el gráfico. — Pendiente: el dashboard embebido no permitió repetir la prueba funcional en esta ejecución.
+- [ ] La antigüedad se actualiza de forma coherente con la fecha/hora actual y la zona horaria definida. — Bloqueado: análisis y fórmula no localizados.
+- [ ] Los colores y umbrales de antigüedad coinciden con las reglas operativas. — Bloqueado: umbrales no disponibles.
+- [ ] No aparecen tablas pertenecientes a otro dominio. — Bloqueado: falta inventario autorizado por dominio.
 
 ## Validaciones de datos del submódulo
 

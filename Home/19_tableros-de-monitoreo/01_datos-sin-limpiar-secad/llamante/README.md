@@ -13,11 +13,11 @@ No se observaron controles de filtro propios en la hoja.
 
 ## Pruebas específicas
 
-- [ ] Conciliar el total y la distribución por base de origen.
-- [ ] Definir la normalización de teléfonos antes de contar: prefijos, espacios, extensiones, vacíos y valores inválidos.
-- [ ] Validar duplicados y múltiples registros del mismo llamante sin confundir evento con persona.
-- [ ] Confirmar que las selecciones cruzadas funcionan y pueden restablecerse.
-- [ ] Verificar que el alcance temporal coincide con el esperado para la hoja.
+- [ ] Conciliar el total y la distribución por base de origen. — Bloqueado: sin consulta Athena.
+- [ ] Definir la normalización de teléfonos antes de contar: prefijos, espacios, extensiones, vacíos y valores inválidos. — Bloqueado: regla de negocio no suministrada.
+- [ ] Validar duplicados y múltiples registros del mismo llamante sin confundir evento con persona. — Bloqueado: falta llave y consulta anonimizada.
+- [ ] Confirmar que las selecciones cruzadas funcionan y pueden restablecerse. — Pendiente de interacción específica.
+- [ ] Verificar que el alcance temporal coincide con el esperado para la hoja. — Bloqueado: no existe filtro temporal documentado para esta hoja.
 
 ## Privacidad
 

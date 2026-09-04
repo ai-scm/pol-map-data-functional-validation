@@ -20,10 +20,10 @@ Analiza la distribución de registros recientes por código de prioridad y dimen
 
 ## Pruebas específicas
 
-- [ ] Conciliar el total por cada código de prioridad.
-- [ ] Validar homologación, orden y descripción de los códigos.
-- [ ] Comprobar que las agregaciones temporales usan el mismo campo de fecha y zona horaria.
-- [ ] Confirmar que cambiar `Días` actualiza todos los visuales.
-- [ ] Identificar prioridades nulas, desconocidas o fuera del catálogo.
+- [ ] Conciliar el total por cada código de prioridad. — Bloqueado: sin consulta Athena.
+- [ ] Validar homologación, orden y descripción de los códigos. — Bloqueado: falta catálogo autorizado.
+- [ ] Comprobar que las agregaciones temporales usan el mismo campo de fecha y zona horaria. — Bloqueado: zona horaria no documentada.
+- [ ] Confirmar que cambiar `Días` actualiza todos los visuales. — Pendiente de prueba específica en esta hoja; el parámetro y filtro sí fueron confirmados en configuración.
+- [ ] Identificar prioridades nulas, desconocidas o fuera del catálogo. — Bloqueado: falta catálogo y consulta de datos.
 
 Registrar con la [plantilla común](../../registro-resultados.md).

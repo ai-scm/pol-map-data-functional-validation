@@ -1,5 +1,9 @@
 # Tablero Monitoreo Pedidos SECAD v3.0
 
+## Documentación técnica
+
+La lógica confirmada de los KPI `UP` y `DOWN`, los campos del reporte y los hallazgos de filtros están en [`documentacion-tecnica.md`](documentacion-tecnica.md).
+
 ## Objetivo
 
 Permite vigilar la actualización de pedidos SECAD y consultar un reporte de registros operativos.
@@ -18,11 +22,11 @@ No se expusieron pestañas de hojas. La vista única contiene:
 
 ## Validaciones funcionales
 
-- [ ] El tablero carga los dos KPI y la tabla sin errores.
-- [ ] Las fechas de actualización usan zona horaria y formato definidos.
-- [ ] La tabla corresponde al estado o periodo representado por los KPI.
-- [ ] La selección de una fila no mezcla datos de otro pedido.
-- [ ] El alcance territorial y temporal es el autorizado.
+- [x] El tablero carga los dos KPI y la tabla sin errores. — Aprobado el 2026-09-04.
+- [ ] Las fechas de actualización usan zona horaria y formato definidos. — Bloqueado: zona horaria y unidad de `intervalo_fecha_hora` no están documentadas.
+- [ ] La tabla corresponde al estado o periodo representado por los KPI. — Bloqueado: UP y DOWN no comparten el filtro de año actual y falta una muestra de conciliación.
+- [ ] La selección de una fila no mezcla datos de otro pedido. — Bloqueado: falta llave funcional y muestra anonimizada.
+- [ ] El alcance territorial y temporal es el autorizado. — Bloqueado: falta lista completa de orígenes y regla de alcance.
 
 ## Validaciones de datos
 

@@ -8,6 +8,10 @@ Presenta datos SECAD sin modificación en el Data Lake para analizar volumen his
 
 `Home > Tableros de Monitoreo > Datos Sin Limpiar (SECAD)`
 
+## Documentación técnica
+
+Los filtros, campos, agregaciones y asuntos pendientes están descritos en [`documentacion-tecnica.md`](documentacion-tecnica.md).
+
 ## Hojas
 
 | Hoja visible | Propósito | Documento |
@@ -22,12 +26,12 @@ Presenta datos SECAD sin modificación en el Data Lake para analizar volumen his
 
 ## Validaciones funcionales del submódulo
 
-- [ ] El submódulo aparece en la ruta indicada y abre la hoja `Historia`.
-- [ ] Las siete pestañas pueden activarse y muestran contenido distinto.
-- [ ] Los controles `Días` y `Sigla` afectan únicamente el alcance esperado.
-- [ ] Restablecer el dashboard elimina selecciones y filtros cruzados.
-- [ ] Los títulos, leyendas y unidades coinciden con la hoja activa.
-- [ ] Las tablas de detalle corresponden a la selección efectuada.
+- [x] El submódulo aparece en la ruta indicada y abre la hoja `Historia`. — Aprobado el 2026-09-04.
+- [x] Las siete pestañas pueden activarse y muestran contenido distinto. — Aprobado el 2026-09-04.
+- [x] Los controles `Días` y `Sigla` afectan únicamente el alcance esperado. — Aprobado: se probaron 30→7→30 y Todo→METUN→Todo, con refresco de visuales.
+- [ ] Restablecer el dashboard elimina selecciones y filtros cruzados. — Pendiente: se restablecieron los controles probados, pero no todas las selecciones cruzadas posibles.
+- [x] Los títulos, leyendas y unidades coinciden con la hoja activa. — Aprobado visualmente; la exactitud de las unidades calculadas requiere la fuente.
+- [ ] Las tablas de detalle corresponden a la selección efectuada. — Bloqueado: requiere llave funcional y muestra anonimizada.
 
 ## Validaciones de datos del submódulo
 
