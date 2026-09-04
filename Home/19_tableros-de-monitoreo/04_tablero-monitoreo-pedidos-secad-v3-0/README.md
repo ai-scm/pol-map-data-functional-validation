@@ -1,28 +1,41 @@
-# 04. Tablero Monitoreo Pedidos SECAD v3.0
+# Tablero Monitoreo Pedidos SECAD v3.0
 
-## Identificación
+## Objetivo
 
-| Campo | Valor |
-|---|---|
-| Módulo padre | 19. Tableros de Monitoreo |
-| Submódulo | Tablero Monitoreo Pedidos SECAD v3.0 |
-| Ruta de acceso | `Menú principal > Tableros de Monitoreo > Tablero Monitoreo Pedidos SECAD v3.0` |
-| Estado de documentación | Faltante |
-| Responsable | Pendiente por confirmar |
-| Fecha de actualización | Pendiente por confirmar |
+Permite vigilar la actualización de pedidos SECAD y consultar un reporte de registros operativos.
 
-## Descripción
+## Ruta funcional
 
-Pendiente por confirmar.
+`Home > Tableros de Monitoreo > Tablero Monitoreo Pedidos SECAD v3.0`
 
-## Checklist de documentación
+## Estructura observada
 
-- [ ] Descripción funcional
-- [ ] Ruta de acceso verificada
-- [ ] Parámetros y filtros
-- [ ] Validaciones funcionales
-- [ ] Evidencias
+No se expusieron pestañas de hojas. La vista única contiene:
 
-## Hallazgos y notas
+- KPI `Ultima Actualizacion (UP)`.
+- KPI `Ultima Actualizacion (Down)`.
+- Tabla `Reporte Pedidos Secad`.
 
-Pendiente por confirmar.
+## Validaciones funcionales
+
+- [ ] El tablero carga los dos KPI y la tabla sin errores.
+- [ ] Las fechas de actualización usan zona horaria y formato definidos.
+- [ ] La tabla corresponde al estado o periodo representado por los KPI.
+- [ ] La selección de una fila no mezcla datos de otro pedido.
+- [ ] El alcance territorial y temporal es el autorizado.
+
+## Validaciones de datos
+
+- Comparar la última actualización ascendente y descendente con la ejecución de ingesta correspondiente.
+- Conciliar el total de pedidos entre Policía, Athena y la tabla.
+- Validar duplicados, fechas nulas, unidad/sigla, estado y coordenadas.
+- Confirmar tratamiento de coordenadas en cero y valores fuera del rango de Colombia.
+- Documentar exclusiones, homologaciones y deduplicación aplicadas al reporte.
+
+## Manejo de información sensible
+
+La tabla puede contener detalle operativo, ubicación, teléfonos o narrativas. No incluir filas, capturas sin recortar ni textos de llamadas en el repositorio. Las muestras deben anonimizarse.
+
+## Aceptación y resultados
+
+Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). La vista se aprueba únicamente cuando los KPI y la tabla comparten el mismo corte y las diferencias están justificadas.

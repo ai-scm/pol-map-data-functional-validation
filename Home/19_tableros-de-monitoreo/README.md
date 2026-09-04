@@ -1,58 +1,45 @@
 # 19. Tableros de Monitoreo
 
-## 1. Identificación
+## Propósito
 
-| Campo | Valor |
-|---|---|
-| Orden en el menú | 19 |
-| Módulo | Tableros de Monitoreo |
-| Ruta de acceso | `Menú principal > Tableros de Monitoreo` |
-| Estado de documentación | Faltante |
-| Responsable | Pendiente por confirmar |
-| Fecha de actualización | Pendiente por confirmar |
+Centraliza dashboards para observar calidad y oportunidad de datos, adopción de la plataforma, salud de componentes, pedidos SECAD y procesos de ingesta.
 
-## 2. Descripción
+## Navegación funcional
 
-Módulo con tableros de monitoreo de la plataforma: datos sin limpiar, métricas de uso, monitoreo de componentes e ingesta de datos.
+`Home > Tableros de Monitoreo`
 
-## 3. Submódulos
+No se versionan identificadores técnicos del dashboard ni URL internas. La ruta funcional visible es la referencia estable.
 
-- Datos Sin Limpiar (SECAD)
-- Métricas de Uso de la Plataforma
-- Monitoreo Componentes
-- Tablero Monitoreo Pedidos SECAD v3.0
-- Última actualización de datos migrados
-- Tablero de control ingesta datos planta nacional
+## Submódulos inventariados
 
-## 4. Estados de documentación
+| Submódulo | Tipo | Hojas visibles | Documentación |
+|---|---|---:|---|
+| Datos Sin Limpiar (SECAD) | Dashboard con hojas | 7 | [`datos-sin-limpiar-secad`](datos-sin-limpiar-secad/README.md) |
+| Métricas de Uso de la Plataforma | Dashboard con hojas | 2 | [`metricas-de-uso-de-la-plataforma`](metricas-de-uso-de-la-plataforma/README.md) |
+| Monitoreo Componentes | Vista única con contenido personalizado | 1 vista | [`monitoreo-componentes`](monitoreo-componentes/README.md) |
+| Tablero Monitoreo Pedidos SECAD v3.0 | Vista única | 1 vista | [`tablero-monitoreo-pedidos-secad-v3-0`](tablero-monitoreo-pedidos-secad-v3-0/README.md) |
+| Última actualización de datos migrados | Dashboard con hojas | 5 | [`ultima-actualizacion-de-datos-migrados`](ultima-actualizacion-de-datos-migrados/README.md) |
+| Tablero de control ingesta datos planta nacional | Dashboard con hojas | 2 | [`tablero-de-control-ingesta-datos-planta-nacional`](tablero-de-control-ingesta-datos-planta-nacional/README.md) |
 
-| Estado | Descripción |
-|---|---|
-| `Faltante` | La documentación aún no se ha iniciado. |
-| `En progreso` | La documentación se está redactando. |
-| `Verificación` | La documentación está redactada y pendiente de revisión. |
-| `Terminado` | La documentación está completa y verificada. |
+## Documentos comunes
 
-## 5. Checklist de submódulos
+- [`validaciones.md`](validaciones.md): procedimiento funcional, de datos y criterios de aceptación.
+- [`registro-resultados.md`](registro-resultados.md): plantilla para cada ejecución.
 
-| # | Submódulo | Estado | Responsable | Fecha de actualización | Documentado |
-|---|---|---|---|---|---|
-| 01 | Datos Sin Limpiar (SECAD) | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
-| 02 | Métricas de Uso de la Plataforma | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
-| 03 | Monitoreo Componentes | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
-| 04 | Tablero Monitoreo Pedidos SECAD v3.0 | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
-| 05 | Última actualización de datos migrados | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
-| 06 | Tablero de control ingesta datos planta nacional | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
+## Estado del inventario
 
-## 6. Progreso del módulo
+| Elemento | Estado observado el 2026-09-04 | Alcance |
+|---|---|---|
+| Navegación al módulo y seis submódulos | Disponible | Verificación visual de acceso y carga del contenedor. |
+| Hojas de QuickSight | Inventariadas | 16 hojas visibles en cuatro dashboards. |
+| Monitoreo Componentes | Bloqueado parcialmente | El contenido personalizado solicita autenticación de Google. |
+| Validación Policía vs. Athena | Pendiente | Requiere consultas autorizadas con el mismo corte y reglas de negocio. |
+| Validación de filtros y cifras | Pendiente | Debe ejecutarse y registrarse por periodo de prueba. |
 
-- [ ] 01. Datos Sin Limpiar (SECAD)
-- [ ] 02. Métricas de Uso de la Plataforma
-- [ ] 03. Monitoreo Componentes
-- [ ] 04. Tablero Monitoreo Pedidos SECAD v3.0
-- [ ] 05. Última actualización de datos migrados
-- [ ] 06. Tablero de control ingesta datos planta nacional
+## Convenciones aplicadas
 
-## 7. Hallazgos y notas
-
-Pendiente por confirmar.
+- Directorios y archivos en minúsculas, sin tildes ni caracteres especiales.
+- Guiones medios para separar palabras.
+- Nombre funcional visible como base del directorio.
+- Prefijo `19_` para el módulo, correspondiente a su posición observada en el menú principal.
+- Un `README.md` por submódulo y por hoja visible.

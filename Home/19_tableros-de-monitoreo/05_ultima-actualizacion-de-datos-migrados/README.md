@@ -1,28 +1,44 @@
-# 05. Última actualización de datos migrados
+# Última actualización de datos migrados
 
-## Identificación
+## Objetivo
 
-| Campo | Valor |
+Controla la antigüedad de actualización de tablas migradas, agrupadas por dominio o sistema.
+
+## Ruta funcional
+
+`Home > Tableros de Monitoreo > Última actualización de datos migrados`
+
+## Hojas
+
+| Hoja visible | Documento |
 |---|---|
-| Módulo padre | 19. Tableros de Monitoreo |
-| Submódulo | Última actualización de datos migrados |
-| Ruta de acceso | `Menú principal > Tableros de Monitoreo > Última actualización de datos migrados` |
-| Estado de documentación | Faltante |
-| Responsable | Pendiente por confirmar |
-| Fecha de actualización | Pendiente por confirmar |
+| CNP | [`cnp`](cnp/README.md) |
+| DISEC | [`disec`](disec/README.md) |
+| GEOPOL | [`geopol`](geopol/README.md) |
+| SIVICC | [`sivicc`](sivicc/README.md) |
+| TELEPOL | [`telepol`](telepol/README.md) |
 
-## Descripción
+Todas las hojas observadas incluyen el filtro `Tabla`, una tabla de detalle y el gráfico `Cantidad de tablas por días sin actualizar`.
 
-Pendiente por confirmar.
+## Validaciones funcionales del submódulo
 
-## Checklist de documentación
+- [ ] Las cinco hojas pueden activarse y conservan el contexto de dominio correcto.
+- [ ] El filtro `Tabla` restringe la tabla y el gráfico.
+- [ ] La antigüedad se actualiza de forma coherente con la fecha/hora actual y la zona horaria definida.
+- [ ] Los colores y umbrales de antigüedad coinciden con las reglas operativas.
+- [ ] No aparecen tablas pertenecientes a otro dominio.
 
-- [ ] Descripción funcional
-- [ ] Ruta de acceso verificada
-- [ ] Parámetros y filtros
-- [ ] Validaciones funcionales
-- [ ] Evidencias
+## Validaciones de datos del submódulo
 
-## Hallazgos y notas
+- Conciliar cantidad de tablas esperadas por dominio.
+- Comparar última partición/actualización en Athena con la fecha mostrada.
+- Validar tablas sin actualización, fechas nulas y antigüedad negativa.
+- Documentar exclusiones de tablas, periodicidades no diarias y ventanas de mantenimiento.
 
-Pendiente por confirmar.
+## Hallazgo de accesibilidad a revisar
+
+En la inspección, la etiqueta accesible de la tabla permaneció como `CNP` al cambiar entre las cinco hojas. Verificar si es solo una etiqueta reutilizada o un título incorrecto y corregirlo si afecta accesibilidad o interpretación.
+
+## Aceptación y resultados
+
+Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Una hoja no se aprueba si mezcla tablas de otro dominio o si la antigüedad no puede reconciliarse con Athena.
