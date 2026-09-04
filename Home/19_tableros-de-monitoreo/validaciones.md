@@ -1,5 +1,7 @@
 # Guía de validación
 
+> Esta es una plantilla reutilizable. Las casillas permanecen vacías para cada nueva ejecución. Los resultados comprobados el 2026-09-04 están en [`ejecucion-validaciones-2026-09-04.md`](ejecucion-validaciones-2026-09-04.md).
+
 ## Preparación
 
 Antes de comparar fuentes, registrar:

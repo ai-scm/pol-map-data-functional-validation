@@ -1,5 +1,7 @@
 # Registro de resultados
 
+La ejecución funcional realizada el 2026-09-04 está registrada en [`ejecucion-validaciones-2026-09-04.md`](ejecucion-validaciones-2026-09-04.md). Esta plantilla se conserva vacía para futuras conciliaciones con Policía y Athena.
+
 Copiar una fila por hoja o vista ejecutada. Usar `N/A` únicamente cuando la validación no aplique y explicar la razón en `Hallazgos`.
 
 | Campo | Valor |
