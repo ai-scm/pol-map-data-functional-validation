@@ -37,4 +37,4 @@ Supervisa la recepción de archivos y la carga de datos en IAPOL para el proceso
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Las dos hojas deben compartir una semana/corte comparable y toda diferencia debe tener causa documentada.
+Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Las dos hojas deben compartir una semana/corte comparable y toda diferencia debe tener causa documentada.

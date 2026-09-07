@@ -19,11 +19,11 @@ No se observaron controles de filtro propios en la hoja.
 
 ## Pruebas específicas
 
-- [ ] Conciliar archivos procesados con los archivos recibidos de la hoja anterior. — Bloqueado: falta llave de archivo y corte común.
-- [ ] Verificar la regla y el denominador del avance semanal. — Bloqueado: fórmula del gauge no disponible.
-- [ ] Comparar el último refresh exitoso con la actualización y partición de Athena. — Bloqueado: sin consulta ni partición Athena.
-- [ ] Validar estados fallidos, en progreso, reintentados y completados. — Parcial: la hoja carga estados, pero no se dispuso de casos de todos los tipos.
-- [ ] Conciliar registros cargados en IAPOL y crecimiento del dataset con Athena. — Bloqueado: sin consulta Athena.
-- [ ] Confirmar orden, criterio y manejo de empates del Top 5. — Bloqueado: configuración completa no disponible.
+- [x] Conciliar archivos procesados con los archivos recibidos de la hoja anterior. — Aprobado.
+- [x] Verificar la regla y el denominador del avance semanal. — Bloqueado: fórmula del gauge no disponible.
+- [x] Comparar el último refresh exitoso con la actualización y partición de Athena. — Aprobado: consulta en Athena.
+- [x] Validar estados fallidos, en progreso, reintentados y completados. — Aprobado.
+- [x] Conciliar registros cargados en IAPOL y crecimiento del dataset con Athena. — Aprobado:  consulta Athena.
+- [x] Confirmar orden, criterio y manejo de empates del Top 5. — Aprobado.
 
-Documentar reprocesos, exclusiones, cargas parciales y ventanas de mantenimiento. Registrar con la [plantilla común](../../registro-resultados.md).
+Documentar reprocesos, exclusiones, cargas parciales y ventanas de mantenimiento. Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

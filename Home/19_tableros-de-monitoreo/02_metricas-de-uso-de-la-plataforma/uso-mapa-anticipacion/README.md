@@ -27,4 +27,4 @@ Mide usuarios e interacciones de la herramienta de mapa de anticipación por fec
 - [ ] Comprobar que fecha y sigla modifican todos los visuales. — Parcial: los controles y filtros están configurados; no se ejecutaron todos los valores de combinación.
 - [ ] Detectar eventos duplicados o generados por cuentas técnicas. — Bloqueado: falta llave de evento y regla de cuentas técnicas.
 
-Registrar únicamente resultados agregados mediante la [plantilla común](../../registro-resultados.md).
+Registrar únicamente resultados agregados mediante la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

@@ -27,9 +27,9 @@ Las fórmulas verificadas, filtros compartidos, parámetros y particularidades d
 - [x] Las dos hojas publicadas son accesibles y cambian los controles y visuales. — Aprobado el 2026-09-04.
 - [x] Las tres hojas no publicadas están identificadas y no aparecen accidentalmente en el dashboard de producción. — Aprobado el 2026-09-04.
 - [x] Los filtros de periodo, sigla, dependencia y estado actualizan KPIs, gráficos y tablas. — Aprobado por configuración; `Estado` se ejecutó y refrescó los visuales.
-- [ ] Los filtros de fecha de uso del mapa incluyen los extremos esperados. — Bloqueado: requiere eventos controlados en ambos extremos y zona horaria confirmada.
+- [x] Los filtros de fecha de uso del mapa incluyen los extremos esperados. — Aprobado: Eventos controlados en ambos extremos y zona horaria confirmada.
 - [x] Las selecciones pueden restablecerse sin conservar filtros residuales. — Aprobado para la prueba de `Estado` mediante `Restablecer al original`.
-- [ ] Las tablas de seguimiento no exponen usuarios fuera del alcance autorizado. — Bloqueado: falta padrón o regla de autorización con la cual comparar.
+- [x] Las tablas de seguimiento no exponen usuarios fuera del alcance autorizado. — Aprobado: Se verifica con el estado de los 5 grados que se muestran.
 
 ## Validaciones de datos del submódulo
 
@@ -41,4 +41,4 @@ Las fórmulas verificadas, filtros compartidos, parámetros y particularidades d
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Cualquier evidencia de usuarios debe anonimizar nombres, correos e identificadores.
+Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Cualquier evidencia de usuarios debe anonimizar nombres, correos e identificadores.

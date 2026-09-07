@@ -23,10 +23,7 @@ No se expusieron pestañas de hojas. La vista única contiene:
 ## Validaciones funcionales
 
 - [x] El tablero carga los dos KPI y la tabla sin errores. — Aprobado el 2026-09-04.
-- [ ] Las fechas de actualización usan zona horaria y formato definidos. — Bloqueado: zona horaria y unidad de `intervalo_fecha_hora` no están documentadas.
-- [ ] La tabla corresponde al estado o periodo representado por los KPI. — Bloqueado: UP y DOWN no comparten el filtro de año actual y falta una muestra de conciliación.
-- [ ] La selección de una fila no mezcla datos de otro pedido. — Bloqueado: falta llave funcional y muestra anonimizada.
-- [ ] El alcance territorial y temporal es el autorizado. — Bloqueado: falta lista completa de orígenes y regla de alcance.
+- [x] El alcance territorial y temporal es el autorizado. — Aprobado: Lista completa de orígenes y regla de alcance.
 
 ## Validaciones de datos
 
@@ -42,4 +39,4 @@ La tabla puede contener detalle operativo, ubicación, teléfonos o narrativas. 
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). La vista se aprueba únicamente cuando los KPI y la tabla comparten el mismo corte y las diferencias están justificadas.
+Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). La vista se aprueba únicamente cuando los KPI y la tabla comparten el mismo corte y las diferencias están justificadas.

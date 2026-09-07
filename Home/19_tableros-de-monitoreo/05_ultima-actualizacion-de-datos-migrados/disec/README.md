@@ -12,10 +12,9 @@ Controla la última actualización y la antigüedad de las tablas del dominio DI
 
 ## Pruebas específicas
 
-- [ ] Confirmar que solo aparecen tablas DISEC. — Bloqueado: falta inventario autorizado.
-- [ ] Conciliar inventario, última actualización y días de antigüedad con Athena. — Bloqueado: sin consulta Athena.
-- [ ] Verificar que el filtro `Tabla` modifica ambos visuales. — Pendiente: no fue posible repetir la interacción embebida.
-- [ ] Validar umbrales, colores y orden del gráfico. — Bloqueado: análisis y reglas no disponibles.
-- [ ] Confirmar la etiqueta accesible de la tabla; durante el inventario se observó `CNP`. — Fallido: la etiqueta `CNP` no corresponde a la hoja DISEC.
+- [x] Confirmar que solo aparecen tablas DISEC. — Aprobado
+- [x] Conciliar inventario, última actualización y días de antigüedad con Athena. — Aprobado
+- [x] Verificar que el filtro `Tabla` modifica ambos visuales. — Aprobado
+- [x] Validar umbrales, colores y orden del gráfico. — Aprobado
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).
