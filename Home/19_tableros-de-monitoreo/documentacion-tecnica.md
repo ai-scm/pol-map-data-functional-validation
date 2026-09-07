@@ -23,7 +23,7 @@ La inspección se realizó el 2026-09-04 sobre los dashboards publicados y, cuan
 | Métricas de Uso de la Plataforma | `02989568-503e-46ed-8d01-2311bc5f6707` | `pon-prod-ts-metricas-uso-plataforma` | `eventos_IAPOL_metricas_uso analysis` | `eventos_IAPOL` (SPICE) | Análisis disponible. |
 | Monitoreo Componentes | `a2f9a0d2-07b5-40b3-ab99-8a6254725378` | No encontrado | No informado | No identificado | Pendiente; el contenido solicita autenticación externa. |
 | Tablero Monitoreo Pedidos SECAD v3.0 | `1ddbf100-16b1-45a3-a388-5f5fd3dec7bf` | `Tablero Monitoreo Pedidos SECAD v3.0` | `vw_pedidos_secad analysis` | `vw_pedidos_secad_v2` (SPICE) | Análisis disponible. |
-| Última actualización de datos migrados | `8cae6307-9b57-4c94-beb3-ae8c7ee7e04f` | `migracion_tablas` | `utima_actualizacion_tablas analysis` | Pendiente de identificación | El nombre informado no aparece en el catálogo de análisis accesible. |
+| Última actualización de datos migrados | `8cae6307-9b57-4c94-beb3-ae8c7ee7e04f` | `migracion_tablas` | `utima_actualizacion_tablas analysis` | `utima_actualizacion_tablas` | El nombre informado no aparece en el catálogo de análisis accesible. |
 | Tablero de control ingesta datos planta nacional | `3529d12a-f9f4-4fb9-b5bf-3d2b372abcb8` | `Tablero de control planta nacional` | `Monitoreo ingesta llamadas de emergencia` | `v_control_files`, `v_qs_refresh_monitor`, `v_monitoreo_final_clean` | Metadatos del dashboard publicados disponibles; análisis no localizado. |
 
 ## Orden lógico de evaluación

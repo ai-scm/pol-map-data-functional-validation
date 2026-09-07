@@ -21,11 +21,10 @@ Copiar una fila por hoja o vista ejecutada. Usar `N/A` únicamente cuando la val
 | Diferencia Policía-Athena |  |
 | Diferencia Athena-aplicación |  |
 | Resultado | `Aprobado`, `Fallido` o `Bloqueado` |
-| Ejecutado por |  |
+| Ejecutado por | David Sebastian Barrera Gaona |
 | Hallazgos |  |
 | Justificación de diferencias |  |
-| Ticket relacionado |  |
-| Evidencia anonimizada |  |
+| Ticket relacionado | 205718 |
 
 ## Resumen de controles de calidad
 
@@ -34,11 +33,3 @@ Copiar una fila por hoja o vista ejecutada. Usar `N/A` únicamente cuando la val
 | Total de registros |  |  |  |  |
 | Duplicados |  |  | N/A |  |
 | Nulos en campos obligatorios |  |  | N/A |  |
-| Sin coordenadas |  |  |  |  |
-| Coordenadas inválidas |  |  |  |  |
-
-## Muestra de conciliación anonimizada
-
-| Id enmascarado | Policía | Athena | Aplicación | Coincide | Observación |
-|---|---|---|---|---|---|
-| `***` |  |  |  |  |  |
