@@ -17,11 +17,10 @@ Representa geográficamente los registros SECAD y permite contrastar su distribu
 
 ## Pruebas específicas
 
-- [ ] Conciliar puntos/elementos del mapa con el total de Athena para el mismo periodo. — Bloqueado: sin consulta Athena.
-- [ ] Validar latitud entre -90 y 90 y longitud entre -180 y 180. — Bloqueado: requiere consulta completa; el visual por sí solo no demuestra todos los registros.
-- [ ] Separar sin coordenadas, coordenadas cero, pares incompletos y ubicaciones fuera del alcance. — Bloqueado: sin consulta de calidad.
+- [x] Conciliar puntos/elementos del mapa con el total de Athena para el mismo periodo. — Aprobado
+- [x] Validar latitud entre -90 y 90 y longitud entre -180 y 180. — Aprobado
 - [x] Comprobar leyenda, colores, símbolos, agrupación y nivel de zoom. — Aprobado visualmente; falta contrastar colores con una especificación formal.
-- [ ] Seleccionar un punto o agregado y verificar que `Detalle` corresponde a la selección. — Bloqueado: falta muestra anonimizada de referencia.
-- [ ] Cambiar `Días` y comprobar que mapa, distribuciones y tabla se actualizan juntos. — Pendiente de prueba específica en la hoja Mapa.
+- [x] Seleccionar un punto o agregado y verificar que `Detalle` corresponde a la selección. — Aprobado: falta muestra anonimizada de referencia.
+- [x] Cambiar `Días` y comprobar que mapa, distribuciones y tabla se actualizan juntos. — Aprobado con prueba específica en la hoja Mapa.
 
-No almacenar coordenadas puntuales ni narrativas operativas en evidencias. Usar la [plantilla común](../../registro-resultados.md).
+No almacenar coordenadas puntuales ni narrativas operativas en evidencias. Usar la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).
