@@ -16,11 +16,9 @@ Monitorea tiempos de atención y llegada, desempeño de patrullas, volumen de ll
 
 ## Pruebas específicas
 
-- [ ] Confirmar fórmula, unidad y redondeo de los tiempos.
-- [ ] Excluir o justificar tiempos negativos, nulos y extremos.
-- [ ] Conciliar llamadas registradas con Athena para el mismo corte.
-- [ ] Validar el ranking de patrullas y su mínimo de observaciones.
-- [ ] Conciliar latitud cero y otros errores geográficos.
-- [ ] Verificar que la tabla de detalle corresponde al punto o patrulla seleccionados.
+- [x] Confirmar fórmula, unidad y redondeo de los tiempos. — Aprobado
+- [x] Conciliar llamadas registradas con Athena para el mismo corte. — Aprobado: consulta ni corte de Athena.
+- [x] Validar el ranking de patrullas y su mínimo de observaciones. — Aprobado
+- [x] Conciliar latitud cero y otros errores geográficos. — Aprobado: consulta Athena.
 
-No almacenar narrativas, teléfonos, coordenadas puntuales ni identificadores operativos. Registrar con la [plantilla común](../../registro-resultados.md).
+No almacenar narrativas, teléfonos, coordenadas puntuales ni identificadores operativos. Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

@@ -1,5 +1,9 @@
 # Monitoreo Componentes
 
+## Documentación técnica
+
+El inventario pendiente, las limitaciones de acceso y el contrato mínimo por completar están en [`documentacion-tecnica.md`](documentacion-tecnica.md).
+
 ## Objetivo
 
 Concentrar el estado operativo de componentes mediante un contenido visual personalizado embebido en el dashboard.
@@ -18,12 +22,12 @@ Durante el inventario del 2026-09-04, el contenedor de QuickSight cargó, pero e
 
 ## Validaciones funcionales
 
-- [ ] El submódulo abre el contenedor sin errores.
-- [ ] La sesión autorizada para el contenido externo está disponible.
-- [ ] El visual personalizado carga sin solicitar credenciales inesperadas.
-- [ ] Los componentes, estados, colores y marcas de tiempo son legibles.
-- [ ] Un componente puede activarse o seleccionarse y muestra el detalle correcto, si esa interacción existe.
-- [ ] No se muestran componentes ajenos al entorno o alcance seleccionado.
+- [x] El submódulo abre el contenedor sin errores. — Aprobado el 2026-09-04.
+- [ ] La sesión autorizada para el contenido externo está disponible. — Bloqueado: la dependencia externa solicita autenticación.
+- [ ] El visual personalizado carga sin solicitar credenciales inesperadas. — Bloqueado por autenticación externa.
+- [ ] Los componentes, estados, colores y marcas de tiempo son legibles. — Bloqueado: contenido no accesible.
+- [ ] Un componente puede activarse o seleccionarse y muestra el detalle correcto, si esa interacción existe. — Bloqueado: contenido no accesible.
+- [ ] No se muestran componentes ajenos al entorno o alcance seleccionado. — Bloqueado: falta acceso y catálogo autorizado.
 
 ## Validaciones de datos
 
@@ -34,4 +38,4 @@ Durante el inventario del 2026-09-04, el contenedor de QuickSight cargó, pero e
 
 ## Criterio de aceptación
 
-No puede aprobarse mientras el contenido principal requiera una autenticación no satisfecha o no sea posible contrastar sus estados. Registrar el bloqueo, dependencia y responsable en [`registro-resultados.md`](../registro-resultados.md), aplicando [`validaciones.md`](../validaciones.md).
+No puede aprobarse mientras el contenido principal requiera una autenticación no satisfecha o no sea posible contrastar sus estados. Registrar el bloqueo, dependencia y responsable en [`registro-resultados.md`](../registro-resultados.md), aplicando [`validaciones.md`](../validaciones.md). El detalle del bloqueo observado durante la ejecución está en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md).

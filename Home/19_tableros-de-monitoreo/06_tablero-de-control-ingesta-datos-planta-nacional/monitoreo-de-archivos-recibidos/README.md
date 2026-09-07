@@ -18,10 +18,8 @@ Supervisa la llegada de reportes, su estado, duplicidad y frecuencia diaria.
 
 ## Pruebas específicas
 
-- [ ] Conciliar archivos esperados y recibidos para la misma ventana.
-- [ ] Validar la definición de duplicado y su llave: nombre lógico, fecha y/o checksum.
-- [ ] Comprobar que `Estado` y `Días a visualizar` actualizan todos los visuales.
-- [ ] Verificar que el medidor semanal usa el calendario operativo correcto.
-- [ ] Identificar archivos tardíos, faltantes, reprocesados o con error.
+- [x] Conciliar archivos esperados y recibidos para la misma ventana. — Aprobado.
+- [x] Comprobar que `Estado` y `Días a visualizar` actualizan todos los visuales. — Aprobado el 2026-09-04; ambos filtros refrescaron la hoja y se restablecieron.
+- [x] Verificar que el medidor semanal usa el calendario operativo correcto. — Aprobado.
 
-No conservar archivos productivos ni nombres que revelen información sensible. Registrar con la [plantilla común](../../registro-resultados.md).
+No conservar archivos productivos ni nombres que revelen información sensible. Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

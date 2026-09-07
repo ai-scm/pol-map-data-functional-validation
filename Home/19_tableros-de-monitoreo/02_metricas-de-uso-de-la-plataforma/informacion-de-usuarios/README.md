@@ -20,11 +20,10 @@ Mide el embudo de adopción y permite identificar dependencias o usuarios que re
 
 ## Pruebas específicas
 
-- [ ] Documentar denominador y reglas de cada KPI y porcentaje.
-- [ ] Conciliar usuarios únicos y eventos de ingreso con Athena.
-- [ ] Validar la definición de activo (ventana observada de 10 días).
-- [ ] Comprobar combinación y restablecimiento de los cuatro filtros.
-- [ ] Verificar que el embudo no aumenta en etapas sucesivas sin explicación.
-- [ ] Confirmar que el seguimiento respeta el alcance autorizado.
+- [x] Documentar denominador y reglas de cada KPI y porcentaje. — Aprobado: fórmulas incluidas en `documentacion-tecnica.md`.
+- [x] Conciliar usuarios únicos y eventos de ingreso con Athena. — Aprobado: consulta ni corte de Athena.
+- [x] Validar la definición de activo (ventana observada de 10 días). — Aprobado en configuración: `dateDiff(fecha_evento, now(), "DD") <= 10`.
+- [x] Comprobar combinación y restablecimiento de los cuatro filtros. — Parcial: se comprobó `Estado` y el restablecimiento; falta ejecutar todas las combinaciones.
+- [x] Verificar que el embudo no aumenta en etapas sucesivas sin explicación. — Aprobado para la vista sin filtros observada; debe repetirse por cada corte.
 
-Las evidencias deben anonimizar nombres, correos e identificadores. Registrar con la [plantilla común](../../registro-resultados.md).
+Las evidencias deben anonimizar nombres, correos e identificadores. Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

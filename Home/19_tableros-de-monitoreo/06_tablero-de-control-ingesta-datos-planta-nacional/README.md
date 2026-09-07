@@ -1,5 +1,9 @@
 # Tablero de control ingesta datos planta nacional
 
+## Documentación técnica
+
+Los conjuntos de datos observados, controles, campos de las tablas, lógica disponible y asuntos pendientes están en [`documentacion-tecnica.md`](documentacion-tecnica.md).
+
 ## Objetivo
 
 Supervisa la recepción de archivos y la carga de datos en IAPOL para el proceso de planta nacional.
@@ -17,11 +21,11 @@ Supervisa la recepción de archivos y la carga de datos en IAPOL para el proceso
 
 ## Validaciones funcionales del submódulo
 
-- [ ] Las dos hojas cargan y muestran contenido diferente.
-- [ ] Los filtros de estado y días actualizan la hoja de archivos recibidos.
-- [ ] Los estados de procesamiento, refresh y carga usan colores y etiquetas coherentes.
-- [ ] Las tablas y KPIs corresponden a la misma semana y corte.
-- [ ] No aparecen archivos o procesos fuera del alcance definido.
+- [x] Las dos hojas cargan y muestran contenido diferente. — Aprobado el 2026-09-04.
+- [x] Los filtros de estado y días actualizan la hoja de archivos recibidos. — Aprobado: 20→10→20 y selección de estado con posterior restablecimiento.
+- [x] Los estados de procesamiento, refresh y carga usan colores y etiquetas coherentes. — Aprobado visualmente; la regla de colores permanece pendiente.
+- [ ] Las tablas y KPIs corresponden a la misma semana y corte. — Bloqueado: falta corte, definición de semana y consulta fuente.
+- [ ] No aparecen archivos o procesos fuera del alcance definido. — Bloqueado: falta inventario esperado y regla de autorización.
 
 ## Validaciones de datos del submódulo
 
@@ -33,4 +37,4 @@ Supervisa la recepción de archivos y la carga de datos en IAPOL para el proceso
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Las dos hojas deben compartir una semana/corte comparable y toda diferencia debe tener causa documentada.
+Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Las dos hojas deben compartir una semana/corte comparable y toda diferencia debe tener causa documentada.

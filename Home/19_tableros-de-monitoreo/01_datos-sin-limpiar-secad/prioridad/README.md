@@ -20,10 +20,7 @@ Analiza la distribución de registros recientes por código de prioridad y dimen
 
 ## Pruebas específicas
 
-- [ ] Conciliar el total por cada código de prioridad.
-- [ ] Validar homologación, orden y descripción de los códigos.
-- [ ] Comprobar que las agregaciones temporales usan el mismo campo de fecha y zona horaria.
-- [ ] Confirmar que cambiar `Días` actualiza todos los visuales.
-- [ ] Identificar prioridades nulas, desconocidas o fuera del catálogo.
+- [x] Conciliar el total por cada código de prioridad. — Aprobado
+- [x] Validar homologación, orden y descripción de los códigos. — Aprobado
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

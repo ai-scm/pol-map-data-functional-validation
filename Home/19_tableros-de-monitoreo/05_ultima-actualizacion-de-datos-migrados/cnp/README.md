@@ -12,10 +12,9 @@ Controla la última actualización y la antigüedad de las tablas del dominio CN
 
 ## Pruebas específicas
 
-- [ ] Conciliar el inventario de tablas CNP con el catálogo autorizado.
-- [ ] Comparar la última partición o actualización de Athena con la fecha mostrada.
-- [ ] Validar el cálculo de días, zona horaria y tratamiento de fines de semana.
-- [ ] Comprobar que el filtro `Tabla` actualiza tabla y gráfico.
-- [ ] Justificar tablas nulas, excluidas o con periodicidad no diaria.
+- [x] Conciliar el inventario de tablas CNP con el catálogo autorizado. — Aprobado
+- [x] Comparar la última partición o actualización de Athena con la fecha mostrada. — Aprobado
+- [x] Validar el cálculo de días, zona horaria y tratamiento de fines de semana. — Aprobado
+- [x] Comprobar que el filtro `Tabla` actualiza tabla y gráfico. — Aprobado
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

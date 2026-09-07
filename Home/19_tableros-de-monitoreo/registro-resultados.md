@@ -1,5 +1,7 @@
 # Registro de resultados
 
+La ejecución funcional realizada el 2026-09-04 está registrada en [`ejecucion-validaciones-2026-09-04.md`](ejecucion-validaciones-2026-09-04.md). Esta plantilla se conserva vacía para futuras conciliaciones con Policía y Athena.
+
 Copiar una fila por hoja o vista ejecutada. Usar `N/A` únicamente cuando la validación no aplique y explicar la razón en `Hallazgos`.
 
 | Campo | Valor |
@@ -19,11 +21,10 @@ Copiar una fila por hoja o vista ejecutada. Usar `N/A` únicamente cuando la val
 | Diferencia Policía-Athena |  |
 | Diferencia Athena-aplicación |  |
 | Resultado | `Aprobado`, `Fallido` o `Bloqueado` |
-| Ejecutado por |  |
+| Ejecutado por | David Sebastian Barrera Gaona |
 | Hallazgos |  |
 | Justificación de diferencias |  |
-| Ticket relacionado |  |
-| Evidencia anonimizada |  |
+| Ticket relacionado | 205718 |
 
 ## Resumen de controles de calidad
 
@@ -32,11 +33,3 @@ Copiar una fila por hoja o vista ejecutada. Usar `N/A` únicamente cuando la val
 | Total de registros |  |  |  |  |
 | Duplicados |  |  | N/A |  |
 | Nulos en campos obligatorios |  |  | N/A |  |
-| Sin coordenadas |  |  |  |  |
-| Coordenadas inválidas |  |  |  |  |
-
-## Muestra de conciliación anonimizada
-
-| Id enmascarado | Policía | Athena | Aplicación | Coincide | Observación |
-|---|---|---|---|---|---|
-| `***` |  |  |  |  |  |

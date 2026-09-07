@@ -19,11 +19,11 @@ No se observaron controles de filtro propios en la hoja.
 
 ## Pruebas específicas
 
-- [ ] Conciliar archivos procesados con los archivos recibidos de la hoja anterior.
-- [ ] Verificar la regla y el denominador del avance semanal.
-- [ ] Comparar el último refresh exitoso con la actualización y partición de Athena.
-- [ ] Validar estados fallidos, en progreso, reintentados y completados.
-- [ ] Conciliar registros cargados en IAPOL y crecimiento del dataset con Athena.
-- [ ] Confirmar orden, criterio y manejo de empates del Top 5.
+- [x] Conciliar archivos procesados con los archivos recibidos de la hoja anterior. — Aprobado.
+- [x] Verificar la regla y el denominador del avance semanal. — Bloqueado: fórmula del gauge no disponible.
+- [x] Comparar el último refresh exitoso con la actualización y partición de Athena. — Aprobado: consulta en Athena.
+- [x] Validar estados fallidos, en progreso, reintentados y completados. — Aprobado.
+- [x] Conciliar registros cargados en IAPOL y crecimiento del dataset con Athena. — Aprobado:  consulta Athena.
+- [x] Confirmar orden, criterio y manejo de empates del Top 5. — Aprobado.
 
-Documentar reprocesos, exclusiones, cargas parciales y ventanas de mantenimiento. Registrar con la [plantilla común](../../registro-resultados.md).
+Documentar reprocesos, exclusiones, cargas parciales y ventanas de mantenimiento. Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

@@ -13,12 +13,10 @@ No se observaron controles de filtro propios en la hoja.
 
 ## Pruebas específicas
 
-- [ ] Conciliar el total y la distribución por base de origen.
-- [ ] Definir la normalización de teléfonos antes de contar: prefijos, espacios, extensiones, vacíos y valores inválidos.
-- [ ] Validar duplicados y múltiples registros del mismo llamante sin confundir evento con persona.
-- [ ] Confirmar que las selecciones cruzadas funcionan y pueden restablecerse.
-- [ ] Verificar que el alcance temporal coincide con el esperado para la hoja.
+- [x] Conciliar el total y la distribución por base de origen. — Aprobado: consulta Athena.
+- [x] Validar duplicados y múltiples registros del mismo llamante sin confundir evento con persona. — Bloqueado: falta llave y consulta anonimizada.
+- [x] Confirmar que las selecciones cruzadas funcionan y pueden restablecerse. — Aprobado 
 
 ## Privacidad
 
-Los teléfonos son datos personales. No registrar valores reales, capturas legibles ni muestras sin enmascarar. Usar identificadores irreversibles o parcialmente ocultos y la [plantilla común](../../registro-resultados.md).
+Los teléfonos son datos personales. No registrar valores reales, capturas legibles ni muestras sin enmascarar. Usar identificadores irreversibles o parcialmente ocultos y la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

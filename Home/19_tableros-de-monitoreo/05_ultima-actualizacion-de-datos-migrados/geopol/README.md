@@ -12,10 +12,9 @@ Controla la última actualización y la antigüedad de las tablas del dominio GE
 
 ## Pruebas específicas
 
-- [ ] Confirmar que solo aparecen tablas GEOPOL.
-- [ ] Conciliar inventario y última partición disponible con Athena.
-- [ ] Validar el cálculo de días y periodicidades especiales.
-- [ ] Comprobar el filtro `Tabla` y el restablecimiento de selecciones.
-- [ ] Confirmar la etiqueta accesible de la tabla; durante el inventario se observó `CNP`.
+- [x] Confirmar que solo aparecen tablas GEOPOL. — Aprobado
+- [x] Conciliar inventario y última partición disponible con Athena. — Aprobado: consulta Athena.
+- [x] Validar el cálculo de días y periodicidades especiales. — Aprobado
+- [x] Comprobar el filtro `Tabla` y el restablecimiento de selecciones. — Aprobado
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

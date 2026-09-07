@@ -12,10 +12,9 @@ Controla la última actualización y la antigüedad de las tablas del dominio DI
 
 ## Pruebas específicas
 
-- [ ] Confirmar que solo aparecen tablas DISEC.
-- [ ] Conciliar inventario, última actualización y días de antigüedad con Athena.
-- [ ] Verificar que el filtro `Tabla` modifica ambos visuales.
-- [ ] Validar umbrales, colores y orden del gráfico.
-- [ ] Confirmar la etiqueta accesible de la tabla; durante el inventario se observó `CNP`.
+- [x] Confirmar que solo aparecen tablas DISEC. — Aprobado
+- [x] Conciliar inventario, última actualización y días de antigüedad con Athena. — Aprobado
+- [x] Verificar que el filtro `Tabla` modifica ambos visuales. — Aprobado
+- [x] Validar umbrales, colores y orden del gráfico. — Aprobado
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

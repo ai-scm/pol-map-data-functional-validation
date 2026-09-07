@@ -20,11 +20,11 @@ Mide usuarios e interacciones de la herramienta de mapa de anticipación por fec
 
 ## Pruebas específicas
 
-- [ ] Verificar inclusividad de las fechas inicial y final y su zona horaria.
-- [ ] Confirmar que solo empleados activos (`AC`) participan del cálculo.
-- [ ] Conciliar usuarios únicos e interacciones con Athena.
-- [ ] Validar el Top 10, incluidos orden, empates y unidades nulas.
-- [ ] Comprobar que fecha y sigla modifican todos los visuales.
-- [ ] Detectar eventos duplicados o generados por cuentas técnicas.
+- [ ] Verificar inclusividad de las fechas inicial y final y su zona horaria. — Bloqueado: faltan eventos de frontera y zona horaria confirmada.
+- [x] Confirmar que solo empleados activos (`AC`) participan del cálculo. — Aprobado en configuración por filtro global y control visible.
+- [ ] Conciliar usuarios únicos e interacciones con Athena. — Bloqueado: sin consulta ni corte de Athena.
+- [ ] Validar el Top 10, incluidos orden, empates y unidades nulas. — Bloqueado: requiere consulta de conciliación y regla de desempate.
+- [ ] Comprobar que fecha y sigla modifican todos los visuales. — Parcial: los controles y filtros están configurados; no se ejecutaron todos los valores de combinación.
+- [ ] Detectar eventos duplicados o generados por cuentas técnicas. — Bloqueado: falta llave de evento y regla de cuentas técnicas.
 
-Registrar únicamente resultados agregados mediante la [plantilla común](../../registro-resultados.md).
+Registrar únicamente resultados agregados mediante la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

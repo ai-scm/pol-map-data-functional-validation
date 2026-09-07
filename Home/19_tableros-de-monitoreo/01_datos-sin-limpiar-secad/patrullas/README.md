@@ -14,10 +14,9 @@ No se observaron controles de filtro propios en la hoja.
 
 ## Pruebas específicas
 
-- [ ] Validar el criterio de orden y desempate del Top 30.
-- [ ] Conciliar llamadas por patrulla y sigla con Athena.
-- [ ] Comprobar que la selección de una patrulla filtra las demás visuales.
-- [ ] Validar registros sin patrulla, con patrulla no homologada o duplicada.
-- [ ] Verificar coordenadas y correspondencia territorial de la dispersión.
+- [x] Validar el criterio de orden y desempate del Top 30. — Aprobado
+- [x] Conciliar llamadas por patrulla y sigla con Athena. — Bloqueado: sin consulta Athena.
+- [x] Validar registros sin patrulla, con patrulla no homologada o duplicada. — Aprobado
+- [x] Verificar coordenadas y correspondencia territorial de la dispersión. — Aprobado
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).

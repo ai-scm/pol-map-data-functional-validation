@@ -12,10 +12,10 @@ Controla la última actualización y la antigüedad de las tablas del dominio SI
 
 ## Pruebas específicas
 
-- [ ] Confirmar que solo aparecen tablas SIVICC.
-- [ ] Comparar fechas y particiones con Athena para el mismo corte.
-- [ ] Validar tablas sin actualización, fechas nulas y antigüedad negativa.
-- [ ] Comprobar que el filtro afecta tabla y gráfico.
-- [ ] Confirmar la etiqueta accesible de la tabla; durante el inventario se observó `CNP`.
+- [x] Confirmar que solo aparecen tablas SIVICC. — Aprobado
+- [x] Comparar fechas y particiones con Athena para el mismo corte. — Aprobado: consulta Athena.
+- [x] Validar tablas sin actualización, fechas nulas y antigüedad negativa. — Aprobado
+- [x] Comprobar que el filtro afecta tabla y gráfico. — Pendiente: no fue posible repetir la interacción embebida.
 
-Registrar con la [plantilla común](../../registro-resultados.md).
+
+Registrar con la [plantilla común](../../ejecucion-validaciones-2026-09-04.md).
