@@ -99,4 +99,85 @@ Se observan promedios de `minutos_llegada` y `minutos_atencion`, clasificaciones
 - Filtros internos de Patrullas y Llamante.
 - Regla oficial para duplicados y tratamiento de coordenadas.
 
+## Consultas Athena orientativas
+
+Estas consultas siguen la [plantilla SQL orientativa del módulo](../documentacion-tecnica.md#plantilla-sql-orientativa). Usan únicamente campos observados en el análisis y dejan como marcadores `<...>` lo que sigue `Pendiente`: catálogo y esquema físico, tabla real que alimenta SPICE, zona horaria, extremos exactos de la ventana móvil y la lista completa de siglas excluidas. No deben ejecutarse sin reemplazar esos marcadores por valores confirmados.
+
+Recordatorios de conciliación específicos de este tablero:
+
+- La ventana "Últimos N días" es móvil respecto al instante de ejecución; materializar `<inicio>` y `<fin_exclusivo>` como marcas concretas antes de comparar.
+- Comparar `COUNT(*)`, `COUNT(cod_final)` y `COUNT(DISTINCT nume_llamada)` porque los visuales no usan el mismo grano.
+- No copiar `nume_telefono`, `comentario`, coordenadas ni narrativa a la evidencia.
+
+### Hoja Historia — conteos base y número de bases
+
+```sql
+-- Cuenta Total (cod_final no nulo) vs COUNT(*) y llave funcional
+SELECT
+    COUNT(*)                        AS registros,
+    COUNT(cod_final)                AS cuenta_cod_final,   -- excluye nulos
+    COUNT(DISTINCT nume_llamada)    AS llamadas_distintas,
+    COUNT(DISTINCT bd_origen)       AS numero_bases
+FROM <catalogo>.<esquema>.<tabla_llamada_autoupdate>;
+```
+
+### Hoja Últimos Días — ventana móvil y filtro de sigla
+
+```sql
+-- Reproduce el parámetro `dias` (valor visible inicial 30) y el control `Sigla`.
+-- Sustituir la comparación de sigla por la misma semántica "contiene" del dashboard.
+SELECT
+    COUNT(*)                        AS registros,
+    COUNT(DISTINCT nume_llamada)    AS llamadas_distintas
+FROM <catalogo>.<esquema>.<tabla_llamada_autoupdate>
+WHERE fecha_caso >= TIMESTAMP '<inicio_ultimos_dias>'
+  AND fecha_caso <  TIMESTAMP '<fin_exclusivo>'
+  AND (<todas_las_siglas> OR sigla = '<sigla_seleccionada>');
+```
+
+### Hoja Prioridad — distribución con exclusión de siglas
+
+```sql
+-- La interfaz resume las exclusiones como `CP3 y más`; requiere la lista completa confirmada.
+SELECT
+    prioridad,
+    COUNT(*) AS registros
+FROM <catalogo>.<esquema>.<tabla_llamada_autoupdate>
+WHERE fecha_caso >= TIMESTAMP '<inicio_ultimos_dias>'
+  AND fecha_caso <  TIMESTAMP '<fin_exclusivo>'
+  AND sigla NOT IN (<lista_completa_siglas_excluidas>)
+GROUP BY prioridad
+ORDER BY registros DESC;
+```
+
+### Hoja Mapa — calidad de coordenadas
+
+```sql
+-- Separar los grupos de coordenadas antes de comparar cantidades.
+SELECT
+    SUM(CASE WHEN latitud IS NOT NULL AND longitud IS NOT NULL THEN 1 ELSE 0 END) AS con_coordenadas,
+    SUM(CASE WHEN latitud IS NULL OR  longitud IS NULL         THEN 1 ELSE 0 END) AS sin_coordenadas,
+    SUM(CASE WHEN latitud = 0 OR longitud = 0                  THEN 1 ELSE 0 END) AS coordenadas_en_cero
+FROM <catalogo>.<esquema>.<tabla_llamada_autoupdate>
+WHERE fecha_caso >= TIMESTAMP '<inicio_ultimos_dias>'
+  AND fecha_caso <  TIMESTAMP '<fin_exclusivo>';
+```
+
+### Hoja METUN - OPERACIÓN XCRIME — filtros confirmados
+
+```sql
+-- Filtros confirmados: fecha_caso posterior al 2021-01-28, sigla = METUN, patrulla que inicia por D1E1_CUAD.
+SELECT
+    COUNT(*)                     AS registros,
+    AVG(minutos_llegada)         AS promedio_minutos_llegada,
+    AVG(minutos_atencion)        AS promedio_minutos_atencion,
+    SUM(CASE WHEN latitud = 0 THEN 1 ELSE 0 END) AS latitud_en_cero
+FROM <catalogo>.<esquema>.<tabla_llamada_autoupdate>
+WHERE fecha_caso > TIMESTAMP '2021-01-28 00:00:00'
+  AND sigla = 'METUN'
+  AND patrulla LIKE 'D1E1_CUAD%';
+```
+
+> Pendiente antes de ejecutar: catálogo, esquema y tabla física de Athena; zona horaria de negocio; extremos exactos de la ventana móvil; lista completa de siglas excluidas en Prioridad; y confirmar si `minutos_llegada`/`minutos_atencion` provienen de la fuente o se derivan de segundos.
+
 [Volver a la documentación técnica del módulo](../documentacion-tecnica.md)

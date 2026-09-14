@@ -120,4 +120,62 @@ El cuadro anterior no reemplaza el linaje del análisis. Se debe capturar para c
 - Fuentes físicas, programación de ingesta y refresco de SPICE.
 - Definiciones de éxito, duplicado, meta semanal y crecimiento.
 
+## Consultas Athena orientativas
+
+Estas consultas siguen la [plantilla SQL orientativa del módulo](../documentacion-tecnica.md#plantilla-sql-orientativa). Usan los conjuntos expuestos por el dashboard (`v_control_files`, `v_qs_refresh_monitor`, `v_monitoreo_final_clean`) y los encabezados de tabla confirmados. La asignación de cada visual a su conjunto es **provisional** mientras el análisis no esté disponible, por lo que estas consultas son orientativas y no un contrato. Reemplazar los marcadores `<...>`: catálogo y esquema físico, nombre exacto del campo de estado y de fecha, definición de semana y zona horaria.
+
+### v_control_files — recepción de archivos por estado
+
+```sql
+-- Conteo por estado dentro de una ventana. Confirmar nombre del campo de estado
+-- (control "Estado") y del campo de fecha ("Fecha reporte" o "Fecha de carga").
+SELECT
+    <campo_estado>          AS estado,
+    COUNT(*)                AS cantidad_archivos
+FROM <catalogo>.<esquema>.v_control_files
+WHERE <campo_fecha> >= TIMESTAMP '<inicio_ventana>'
+  AND <campo_fecha> <  TIMESTAMP '<fin_exclusivo>'
+GROUP BY <campo_estado>
+ORDER BY cantidad_archivos DESC;
+```
+
+### v_control_files — latencia ETL con marcas completas
+
+```sql
+-- La latencia debe calcularse con timestamps completos y una sola zona horaria;
+-- restar por separado fecha y hora produce errores al cruzar medianoche.
+SELECT
+    date_diff('minute', <ts_ingesta>, <ts_procesado>) AS minutos_procesamiento
+FROM <catalogo>.<esquema>.v_control_files
+WHERE <ts_procesado> IS NOT NULL
+  AND <ts_ingesta>   IS NOT NULL;
+```
+
+### v_qs_refresh_monitor — duración de refresh
+
+```sql
+-- Duración debe conciliar con (fecha_final - fecha_inicio) considerando
+-- ejecuciones en curso y finales nulos/fallidos; no debe ser negativa.
+SELECT
+    estado_refresh,
+    fecha_inicio,
+    fecha_final,
+    date_diff('minute', fecha_inicio, fecha_final) AS duracion_minutos
+FROM <catalogo>.<esquema>.v_qs_refresh_monitor
+WHERE fecha_final IS NOT NULL
+ORDER BY fecha_inicio DESC;
+```
+
+### Control de calidad de duración y estados
+
+```sql
+-- Detecta duraciones negativas, ejecuciones en curso y estados no esperados.
+SELECT
+    SUM(CASE WHEN fecha_final IS NULL                                THEN 1 ELSE 0 END) AS en_curso_o_sin_fin,
+    SUM(CASE WHEN date_diff('second', fecha_inicio, fecha_final) < 0  THEN 1 ELSE 0 END) AS duracion_negativa
+FROM <catalogo>.<esquema>.v_qs_refresh_monitor;
+```
+
+> Pendiente antes de ejecutar: localizar el análisis informado; confirmar campos y operadores de `Estado` y `Días a visualizar`; nombres exactos de las marcas de tiempo de ingesta/procesamiento; definición de semana y zona horaria; relación exacta visual↔conjunto; y las fórmulas de los gauges (avance semanal, reportes semana actual). No copiar nombres de archivo reales que revelen rutas o periodos internos.
+
 [Volver a la documentación técnica del módulo](../documentacion-tecnica.md)

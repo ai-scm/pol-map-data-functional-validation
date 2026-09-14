@@ -41,4 +41,4 @@ Las fórmulas verificadas, filtros compartidos, parámetros y particularidades d
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Cualquier evidencia de usuarios debe anonimizar nombres, correos e identificadores.
+Aplican [`validaciones.md`](../validaciones.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Cualquier evidencia de usuarios debe anonimizar nombres, correos e identificadores.

@@ -231,4 +231,69 @@ Contiene una sola serie de conteo distinto de `username` por `fecha_evento`, fil
 - Semántica completa de la condición `sigla_laborando = sigla`.
 - Tratamiento de fechas futuras y nulas en las expresiones con `dateDiff`.
 
+## Consultas Athena orientativas
+
+Estas consultas siguen la [plantilla SQL orientativa del módulo](../documentacion-tecnica.md#plantilla-sql-orientativa) y traducen a SQL las expresiones confirmadas del análisis. El identificador `username` es sensible: no registrar su valor ni otros atributos personales en la evidencia. Antes de ejecutar, materializar `now()` a un instante fijo del corte y sustituir los marcadores `<...>`: catálogo/esquema físico, tabla real que alimenta SPICE y zona horaria.
+
+Toda comparación con el dashboard debe aplicar primero la **población base** (filtros compartidos), de lo contrario los totales no son comparables.
+
+### Población base (filtros compartidos)
+
+```sql
+-- Condición reutilizable en todas las medidas de la hoja Información de usuarios.
+-- usuarios_policia = 1 AND estado_empleado incluye 'AC' AND sigla_laborando = sigla
+WHERE usuarios_policia = 1
+  AND estado_empleado = 'AC'
+  AND sigla_laborando = sigla
+```
+
+### KPI de adopción (hoja Información de usuarios)
+
+```sql
+-- Total usuarios, han ingresado y nunca ingresaron: cuentan usuarios DISTINTOS, no eventos.
+SELECT
+    COUNT(DISTINCT username)                                                        AS total_usuarios,
+    COUNT(DISTINCT CASE WHEN estado_user = 'Con ingreso' THEN username END)         AS han_ingresado,
+    COUNT(DISTINCT CASE WHEN estado_user = 'Sin ingreso' THEN username END)         AS nunca_ingresaron
+FROM <catalogo>.<esquema>.<tabla_eventos_iapol>
+WHERE usuarios_policia = 1
+  AND estado_empleado = 'AC'
+  AND sigla_laborando = sigla;
+```
+
+### Usuarios activos en 10 días
+
+```sql
+-- distinctCountIf(username, dateDiff(fecha_evento, now(), "DD") <= 10)
+-- Reemplazar TIMESTAMP '<now_corte>' por el instante fijo de la conciliación.
+SELECT
+    COUNT(DISTINCT CASE
+        WHEN date_diff('day', fecha_evento, TIMESTAMP '<now_corte>') <= 10
+        THEN username END)                                                          AS usuarios_activos_10d,
+    COUNT(DISTINCT username)                                                        AS total_usuarios
+FROM <catalogo>.<esquema>.<tabla_eventos_iapol>
+WHERE usuarios_policia = 1
+  AND estado_empleado = 'AC'
+  AND sigla_laborando = sigla;
+-- Porcentaje activos 10 días = usuarios_activos_10d / total_usuarios
+-- Revisar fechas futuras/nulas: una diferencia negativa también satisface <= 10.
+```
+
+### Hoja Uso mapa anticipacion — interacciones con el elemento
+
+```sql
+-- Filtros confirmados: fecha_evento entre parámetros, name_item incluye el mapa,
+-- estado_empleado 'AC' y población base compartida.
+SELECT COUNT(DISTINCT username) AS usuarios_con_interaccion
+FROM <catalogo>.<esquema>.<tabla_eventos_iapol>
+WHERE fecha_evento >= TIMESTAMP '<Fechainicio>'
+  AND fecha_evento <= TIMESTAMP '<Fechafin>'
+  AND name_item = 'Mapa de Anticipación a Fenómenos de Seguridad'
+  AND usuarios_policia = 1
+  AND estado_empleado = 'AC'
+  AND sigla_laborando = sigla;
+```
+
+> Pendiente antes de ejecutar: catálogo/esquema, tabla física y zona horaria; congelar `now()` en la conciliación; confirmar la semántica de `sigla_laborando = sigla` y el tratamiento de fechas futuras/nulas en las expresiones con `dateDiff`. Las hojas internas (`Información de usuarios (Anterior)`, `Estadísticas de uso`, `Sheet 10`) permanecen no publicadas y no deben usarse como fuente oficial.
+
 [Volver a la documentación técnica del módulo](../documentacion-tecnica.md)

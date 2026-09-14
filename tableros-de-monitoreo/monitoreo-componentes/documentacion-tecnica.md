@@ -41,4 +41,10 @@ Cuando se disponga del acceso autorizado, se debe registrar como mínimo:
 
 La documentación técnica sólo podrá pasar de `Pendiente` a `Confirmada` cuando se obtengan el nombre del activo, la fuente, el catálogo de filtros y la expresión de cada KPI. El acceso visual por sí solo no demuestra la lógica.
 
+## Consultas Athena orientativas
+
+Por lo anterior **no se proponen consultas SQL** para este submódulo. Cualquier query sería inventado y contradiría el criterio de cierre documental, que exige obtener el nombre del activo, la fuente, el catálogo de filtros y la expresión de cada KPI antes de pasar de `Pendiente` a `Confirmada`. El acceso visual por sí solo no demuestra la lógica.
+
+Cuando se disponga del acceso autorizado, las consultas de conciliación deberán derivarse del contrato técnico pendiente descrito arriba (fuente, grano, catálogo de componentes, estados, ventana, KPI, filtros, alertas y seguridad) y seguir la [plantilla SQL orientativa del módulo](../documentacion-tecnica.md#plantilla-sql-orientativa).
+
 [Volver a la documentación técnica del módulo](../documentacion-tecnica.md)

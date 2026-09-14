@@ -39,4 +39,4 @@ La tabla puede contener detalle operativo, ubicación, teléfonos o narrativas. 
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). La vista se aprueba únicamente cuando los KPI y la tabla comparten el mismo corte y las diferencias están justificadas.
+Aplican [`validaciones.md`](../validaciones.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). La vista se aprueba únicamente cuando los KPI y la tabla comparten el mismo corte y las diferencias están justificadas.

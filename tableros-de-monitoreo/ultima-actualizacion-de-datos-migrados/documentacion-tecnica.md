@@ -81,4 +81,25 @@ No se deben comparar sólo los totales. Dos tablas intercambiadas entre bandas p
 - Precisar qué significa “actualización”: dato fuente, partición de Athena, SPICE o dashboard.
 - Corregir o confirmar la grafía `utima_` del nombre informado del análisis.
 
+## Consultas Athena orientativas
+
+Estado: **Pendiente.** No se localizó el análisis ni el conjunto de datos, y no se confirmaron nombres de campos, tablas físicas ni fórmulas. Por eso **no** se propone una consulta ejecutable como si fuera real; hacerlo violaría la regla del módulo de no completar por semejanza con otro tablero.
+
+La siguiente estructura es únicamente conceptual y sigue la [plantilla SQL orientativa del módulo](../documentacion-tecnica.md#plantilla-sql-orientativa). Todos los identificadores son marcadores `<...>` y la expresión de "días sin actualizar" es **inferida, no verificada**.
+
+```sql
+-- CONCEPTUAL — no ejecutar. Reemplazar todos los <marcadores> tras abrir el análisis.
+-- Objetivo: una fila por tabla y sistema, con la antigüedad de la última actualización.
+SELECT
+    <campo_sistema>                                                       AS sistema,       -- CNP, DISEC, GEOPOL, SIVICC, TELEPOL
+    <campo_tabla>                                                         AS tabla,
+    MAX(<campo_ultima_actualizacion>)                                     AS ultima_actualizacion,
+    date_diff('day', MAX(<campo_ultima_actualizacion>), TIMESTAMP '<fecha_evaluacion>') AS dias_sin_actualizar
+FROM <catalogo>.<esquema>.<tabla_migracion>
+WHERE <campo_sistema> = '<dominio_de_la_hoja>'
+GROUP BY <campo_sistema>, <campo_tabla>;
+```
+
+> Antes de convertir esto en una consulta real hay que confirmar: conjunto de datos y tabla física; qué significa "actualización" (dato fuente, partición de Athena, SPICE o dashboard); la regla para múltiples registros por tabla (normalmente fecha máxima, pero sin confirmar); si `Cantidad de tablas` es `COUNT(*)` o conteo distinto; zona horaria y truncamiento; umbrales/bandas del gráfico `Cantidad de tablas por días sin actualizar`; y el tratamiento de fechas futuras, nulas o de objetos nunca cargados. Verificar también la grafía `utima_` del nombre informado.
+
 [Volver a la documentación técnica del módulo](../documentacion-tecnica.md)

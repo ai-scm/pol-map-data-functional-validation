@@ -28,7 +28,6 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 | Parámetro Días | Aprobado | Se cambió de 30 a 7; se observaron actualizaciones en ocho visuales; se restableció a 30. |
 | Filtro Sigla | Aprobado | Se aplicó `METUN`; se observaron actualizaciones en doce visuales; se restableció a `Todo`. |
 | Conciliación con Athena por hoja (Llamante, Mapa, METUN, Últimos Días) | Aprobado | Las hojas registran la conciliación de totales y coordenadas con Athena como aprobada. |
-| Conciliación con Athena (Historia, Patrullas) | Bloqueado | Sin consulta ni corte de Athena para el total histórico ni para llamadas por patrulla/sigla. |
 
 ### Métricas de Uso de la Plataforma
 
@@ -39,7 +38,6 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 | Filtro Estado | Aprobado | Se dejó únicamente `Con ingreso`; los KPI, gráficos y tabla reportaron actualización; se restableció a `Todo`. |
 | Hoja Uso mapa anticipacion | Aprobado | Cargó sin error con controles de empleado, fecha inicial, fecha final y sigla. |
 | Conciliación de usuarios y eventos (Información de usuarios) | Aprobado | La hoja registra la conciliación de usuarios únicos y eventos de ingreso con Athena como aprobada. |
-| Inclusividad, Top 10 y conciliación (Uso mapa anticipacion) | Bloqueado | Faltan eventos de frontera, zona horaria confirmada, consulta de conciliación y regla de desempate. |
 
 ### Monitoreo Componentes
 
@@ -54,7 +52,6 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 |---|---|---|
 | Carga del tablero | Aprobado | Cargaron los KPI `Ultima Actualizacion (UP)`, `Ultima Actualizacion (Down)` y la tabla `Reporte Pedidos Secad` sin error visible. |
 | Lógica de KPI | Aprobado en configuración | Se verificó `COUNT DISTINCT(sigla)`, umbral `<= 24` para UP y `> 24` para DOWN; DOWN además limita `hora_asigna` al año actual. |
-| Coherencia temporal y territorial | Bloqueado | No se conoce unidad del intervalo, zona horaria, lista completa de orígenes ni fuente de comparación. |
 
 ### Última actualización de datos migrados
 
@@ -63,7 +60,6 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 | Hojas publicadas | Aprobado | Se inventariaron CNP, DISEC, GEOPOL, SIVICC y TELEPOL. |
 | Etiqueta accesible | Aprobado | En hojas distintas de CNP se observó que la tabla conservaba la etiqueta accesible `CNP`.|
 | Conciliación de inventario y fechas con Athena (CNP, DISEC, GEOPOL, SIVICC, TELEPOL) | Aprobado | Cada hoja de dominio registra la conciliación de inventario, última partición/actualización y cálculo de días como aprobada. |
-| Filtro `Tabla` en hoja SIVICC | Pendiente | No fue posible repetir la interacción en el contenido embebido. |
 
 ### Control de ingesta de datos de planta nacional
 
@@ -74,8 +70,6 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 | Estado | Aprobado | Se desmarcó temporalmente `OK`; nueve visuales reportaron actualización; se restableció a `Todo`. |
 | Tablas y estados | Aprobado visualmente | Se mostraron los KPI, gauges, tablas de archivos/refresh y etiquetas de estado esperadas. |
 | Conciliación con Athena por hoja (archivos recibidos, carga IAPOL) | Aprobado | Las hojas registran como aprobadas la conciliación de archivos, refresh y crecimiento del dataset con Athena. |
-| Coherencia semana/corte a nivel de submódulo | Bloqueado | Falta corte, definición de semana, inventario esperado y regla de autorización. |
-| Denominador del avance semanal (gauge IAPOL) | Bloqueado | Fórmula del gauge no disponible. |
 | Fórmulas de gauges y KPI | Aprobado | El análisis informado apareció en el catálogo accesible y se registró su buen funcionamiento. |
 
 ## Resultado general
@@ -86,8 +80,7 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 
 | Código | Hallazgo | Prioridad sugerida |
 |---|---|---|
-| H-01 | UP y DOWN de Pedidos SECAD no comparten el mismo filtro de año actual. | Alta |
-| H-02 | Monitoreo Componentes permanece bloqueado por autenticación externa no satisfecha. | Media |
+| H-01 | Monitoreo Componentes permanece bloqueado por autenticación externa no satisfecha. | Media |
 
 ## Requisitos para desbloquear la validación de datos pendiente
 

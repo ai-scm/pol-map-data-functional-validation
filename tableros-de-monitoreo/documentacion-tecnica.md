@@ -34,12 +34,12 @@ Una medida sin nivel explícito se evalúa en el contexto de filtros del visual.
 
 ## Documentos por submódulo
 
-- [Datos Sin Limpiar (SECAD)](01_datos-sin-limpiar-secad/documentacion-tecnica.md)
-- [Métricas de Uso de la Plataforma](02_metricas-de-uso-de-la-plataforma/documentacion-tecnica.md)
-- [Monitoreo Componentes](03_monitoreo-componentes/documentacion-tecnica.md)
-- [Tablero Monitoreo Pedidos SECAD v3.0](04_tablero-monitoreo-pedidos-secad-v3-0/documentacion-tecnica.md)
-- [Última actualización de datos migrados](05_ultima-actualizacion-de-datos-migrados/documentacion-tecnica.md)
-- [Control de ingesta de datos de planta nacional](06_tablero-de-control-ingesta-datos-planta-nacional/documentacion-tecnica.md)
+- [Datos Sin Limpiar (SECAD)](datos-sin-limpiar-secad/documentacion-tecnica.md)
+- [Métricas de Uso de la Plataforma](metricas-de-uso-de-la-plataforma/documentacion-tecnica.md)
+- [Monitoreo Componentes](monitoreo-componentes/documentacion-tecnica.md)
+- [Tablero Monitoreo Pedidos SECAD v3.0](tablero-monitoreo-pedidos-secad-v3-0/documentacion-tecnica.md)
+- [Última actualización de datos migrados](ultima-actualizacion-de-datos-migrados/documentacion-tecnica.md)
+- [Control de ingesta de datos de planta nacional](tablero-de-control-ingesta-datos-planta-nacional/documentacion-tecnica.md)
 
 ## Procedimiento de conciliación
 
@@ -49,7 +49,7 @@ Una medida sin nivel explícito se evalúa en el contexto de filtros del visual.
 4. Consultar Athena usando el mismo campo de fecha y zona horaria del dashboard.
 5. Comparar total general y agrupaciones que correspondan: fecha, departamento, municipio, sigla, origen o estado.
 6. Separar diferencias atribuibles al desfase de carga de diferencias causadas por lógica o calidad.
-7. Registrar fórmula, resultado, evidencia, responsable y ticket en `registro-resultados.md`.
+7. Registrar fórmula, resultado, evidencia, responsable y ticket en `ejecucion-validaciones-2026-09-04.md`.
 
 ## Plantilla SQL orientativa
 

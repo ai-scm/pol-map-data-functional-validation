@@ -43,4 +43,4 @@ En la inspección, la etiqueta accesible de la tabla permaneció como `CNP` al c
 
 ## Aceptación y resultados
 
-Aplican [`validaciones.md`](../validaciones.md) y [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Una hoja no se aprueba si mezcla tablas de otro dominio o si la antigüedad no puede reconciliarse con Athena.
+Aplican [`validaciones.md`](../validaciones.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Una hoja no se aprueba si mezcla tablas de otro dominio o si la antigüedad no puede reconciliarse con Athena.

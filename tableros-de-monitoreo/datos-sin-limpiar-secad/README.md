@@ -47,4 +47,4 @@ Aunque el tablero se denomina “sin limpiar”, se debe confirmar si la ingesta
 
 ## Aceptación y resultados
 
-Aplican los criterios de [`validaciones.md`](../validaciones.md). Registrar cada hoja mediante [`registro-resultados.md`](../registro-resultados.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). No almacenar teléfonos, narrativas de llamadas ni filas completas de producción.
+Aplican los criterios de [`validaciones.md`](../validaciones.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). No almacenar teléfonos, narrativas de llamadas ni filas completas de producción.

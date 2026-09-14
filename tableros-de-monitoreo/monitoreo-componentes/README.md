@@ -38,4 +38,4 @@ Durante el inventario del 2026-09-04, el contenedor de QuickSight cargó, pero e
 
 ## Criterio de aceptación
 
-No puede aprobarse mientras el contenido principal requiera una autenticación no satisfecha o no sea posible contrastar sus estados. Registrar el bloqueo, dependencia y responsable en [`registro-resultados.md`](../registro-resultados.md), aplicando [`validaciones.md`](../validaciones.md). El detalle del bloqueo observado durante la ejecución está en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md).
+No puede aprobarse mientras el contenido principal requiera una autenticación no satisfecha o no sea posible contrastar sus estados. Registrar el bloqueo, dependencia y responsable aplicando [`validaciones.md`](../validaciones.md). El detalle del bloqueo observado durante la ejecución está en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md).
