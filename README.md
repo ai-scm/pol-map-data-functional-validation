@@ -4,38 +4,42 @@ Repositorio de documentación y validación de la aplicación del proyecto Polic
 
 El repositorio tiene dos frentes de trabajo:
 
-1. **Documentación funcional de los módulos** de la aplicación, organizada en la carpeta `Home/`.
+1. **Documentación funcional de los módulos** de la aplicación, con una carpeta por módulo en la raíz del repositorio.
 2. **Validación de datos de las capas del mapa**, organizada en la carpeta `Modulos/`.
 
-## 1. Documentación de módulos (`Home/`)
+## 1. Documentación de módulos
 
-`Home/` es la raíz de la documentación funcional. Contiene un índice general con la checklist maestra de todos los módulos del menú y una carpeta por cada módulo.
+Cada módulo de la aplicación se documenta en su propia carpeta ubicada en la raíz del repositorio. La documentación se incorpora de forma incremental, de modo que la lista de módulos es abierta y puede crecer a medida que se documentan nuevos módulos del menú.
 
 ### Objetivo
 
 Documentar cada módulo y submódulo de la aplicación y llevar el control de avance mediante una checklist con estado, responsable y fecha de actualización.
 
-### Estructura de `Home/`
+### Estructura de un módulo
 
 ```text
-Home/
-├── README.md                         # Índice general y checklist maestra de módulos
-├── plantilla-modulo.md               # Plantilla base para documentar un módulo
-│
-├── 01_motor-de-aprendizaje/
-│   └── README.md
-├── 02_certificaciones-aws/
-│   └── README.md
-├── 03_administracion/
-│   └── README.md
-├── ...
-└── 19_tableros-de-monitoreo/
+<nombre-modulo>/
+├── README.md                 # Documentación y checklist del módulo
+└── <nombre-submodulo>/
     └── README.md
 ```
 
-- Cada carpeta de módulo usa el formato `<numero>_<nombre-modulo>`.
-- El número corresponde al **orden real del menú** de la aplicación, no al orden alfabético.
+Ejemplo con los módulos documentados actualmente:
+
+```text
+plantilla-modulo.md           # Plantilla base para documentar un módulo
+│
+├── anticipacion-a-fenomenos-de-seguridad/
+│   └── README.md
+├── expertopol/
+│   └── README.md
+└── tableros-de-monitoreo/
+    └── README.md
+```
+
+- Cada carpeta de módulo usa el nombre funcional del módulo, sin prefijos numéricos.
 - Cada módulo documenta sus submódulos en su propio `README.md`.
+- Se pueden agregar nuevos módulos creando una carpeta adicional en la raíz, siguiendo la misma estructura.
 
 ### Estados de documentación
 
@@ -184,8 +188,7 @@ Los nombres de carpetas y archivos deben:
 - Usar guiones medios para separar palabras.
 - Evitar espacios, tildes y caracteres especiales.
 - Utilizar el nombre funcional visible en la aplicación.
-
-Para las carpetas de módulo en `Home/` se antepone el número de orden del menú: `<numero>_<nombre-modulo>`.
+- No usar prefijos numéricos en las carpetas de módulo ni de submódulo.
 
 Ejemplos:
 
@@ -194,8 +197,8 @@ seguridad-ciudadana
 delitos-materializados
 policia-comunitaria
 consulta-integrada
-01_motor-de-aprendizaje
-02_certificaciones-aws
+anticipacion-a-fenomenos-de-seguridad
+tableros-de-monitoreo
 ```
 
 ## Manejo de información sensible
@@ -214,4 +217,4 @@ Los valores sensibles deberán manejarse mediante los mecanismos de configuraci�
 
 ## Estado del repositorio
 
-Repositorio en construcción. La documentación de módulos en `Home/` y las capas del mapa en `Modulos/` se incorporarán progresivamente de acuerdo con los módulos y submódulos disponibles en el proyecto Policía.
+Repositorio en construcción. La documentación de módulos y las capas del mapa en `Modulos/` se incorporarán progresivamente de acuerdo con los módulos y submódulos disponibles en el proyecto Policía. La lista de módulos es abierta y seguirá creciendo a medida que se documenten nuevos módulos del menú.
