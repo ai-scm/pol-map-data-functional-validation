@@ -1,0 +1,38 @@
+digraph flujo {
+ graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.35", ranksep="0.6", fontname="DejaVu Sans", label="Certificaciones IAPOL · construcción del análisis", labelloc=t, fontsize=22, fontcolor="#002A66"];
+ node [shape=box, style="rounded,filled", fillcolor="#F6F6F6", color="#E0E0E0", fontname="DejaVu Sans", fontsize=12, fontcolor="#002A66", margin="0.16,0.10"];
+ edge [color="#003D73", fontname="DejaVu Sans", fontsize=10, fontcolor="#003D73"];
+ prueba [label="Evaluación Certificado\nProceso de presentación"];
+ dynamo [label="DynamoDB\npon-prod-iapol-certifications", fillcolor="#DDF5FB"];
+ federado [label="Athena federado\niapol_certifications.default\nLee DynamoDB al consultar", fillcolor="#DDF5FB"];
+ keycloak [label="Keycloak / JDBC\nUsuarios, roles y eventos"];
+ oracle [label="Oracle SIVICC\nUSR_MNVCC.VM_PERSONAL_AGRUPADO"];
+ usuarios [label="Users_db_keycloak\nDiario · 18:30 Colombia"];
+ personal [label="Scheduler SIVICC → full load\nDiario · inicio previsto 19:00"];
+ s3usuarios [label="Parquet en S3\nusers-keycloak/ y eventos/"];
+ s3personal [label="Parquet en S3\nUSR_MNVCC.VM_PERSONAL_AGRUPADO/"];
+ athena [label="Athena · AwsDataCatalog\npon-prod-events + pon-prod-raw-sivicc"];
+ sql [label="personas.sql\nDeduplicación + población\nConciliación por correo único", fillcolor="#DDF5FB"];
+ personas [label="SPICE personas\nUna fila por persona\nRecarga completa horaria", fillcolor="#DDF5FB"];
+ intentos [label="SPICE dashboard\nActividad por intento\nRecarga horaria ≈ :06", fillcolor="#DDF5FB"];
+ respuestas [label="SPICE respuestas\nIntento + pregunta\nRecarga horaria ≈ :30", fillcolor="#DDF5FB"];
+ resumen [label="Resumen + Consultas por persona\n+ Calidad de datos\nAnálisis editable: 3 pestañas", fillcolor="#E5F8EC"];
+ diagnostico [label="Diagnóstico dentro de Resumen\nActividad por fecha + errores\n+ estadísticas por pregunta", fillcolor="#E5F8EC"];
+ produccion [label="Dashboard publicado · versión 2\nNo incorpora el rediseño\nMantiene fuentes anteriores", style="rounded,dashed", fillcolor="white"];
+ prueba -> dynamo [label="escritura del proceso"];
+ dynamo -> federado [label="consulta federada"];
+ keycloak -> usuarios -> s3usuarios -> athena;
+ oracle -> personal -> s3personal -> athena;
+ athena -> sql; federado -> sql;
+ sql -> personas [label="consulta de recarga"];
+ federado -> intentos [label="SQL del dataset"];
+ federado -> respuestas [label="SQL de respuestas"];
+ personas -> resumen;
+ intentos -> diagnostico; respuestas -> diagnostico;
+ resumen -> produccion [style=dashed, label="publicación pendiente"];
+ { rank=same; prueba; keycloak; oracle; }
+ { rank=same; usuarios; personal; dynamo; }
+ { rank=same; athena; federado; }
+ { rank=same; personas; intentos; respuestas; }
+ { rank=same; resumen; diagnostico; }
+}

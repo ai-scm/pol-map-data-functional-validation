@@ -1,0 +1,19 @@
+digraph conteos {
+ graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.4", ranksep="0.45", fontname="DejaVu Sans", label="Cómo se obtienen conteos coherentes por persona", labelloc=t, fontsize=22, fontcolor="#002A66"];
+ node [shape=box, style="rounded,filled", fillcolor="#F6F6F6", color="#E0E0E0", fontname="DejaVu Sans", fontsize=13, fontcolor="#002A66", margin="0.18,0.13"];
+ edge [color="#003D73", fontname="DejaVu Sans", fontsize=11, fontcolor="#003D73"];
+ universo [label="N · población deduplicada por ID Keycloak\nPersonal AC + unidad + correo institucional\n+ actividad IAPOL durante 2026", fillcolor="#DDF5FB"];
+ correo [label="Correo normalizado y alias con propietario único\nSólo la prueba Evaluación Certificado\nEl año de actividad no limita la fecha del intento"];
+ intento [label="¿Existe al menos un ATTEMPT conciliado?", shape=diamond, fillcolor="white"];
+ presentaron [label="P · presentaron\npresento = 1; pendiente = 0\nP = SUM(presento)\nPorcentaje = 100 × P / N", fillcolor="#DFF6E8", color="#30CB71"];
+ pendientes [label="F · sin presentación registrada\npresento = 0; pendiente = 1\nF = SUM(pendiente) = N − P\nPorcentaje = 100 × F / N", fillcolor="#DDF5FB", color="#08A6CB"];
+ control [label="Control: P + F = N\nMismo filtro de unidad y denominador\nN = 0 → porcentaje nulo"];
+ calidad [label="Calidad: correos compartidos, intentos fuera del cruce\ny aprobaciones registradas sin intento\nNo inventar presentaciones para cuadrar conteos"];
+ separado [label="APROBACIONES E INTENTOS SE ANALIZAN POR SEPARADO\nUna persona puede tener varios intentos\nUn resumen PASSED no prueba por sí solo una presentación", style="rounded,dashed", fillcolor="white"];
+ universo -> correo -> intento;
+ intento -> presentaron [label="sí, aprobado o fallido"];
+ intento -> pendientes [label="no"];
+ presentaron -> control; pendientes -> control;
+ control -> calidad; calidad -> separado;
+ { rank=same; presentaron; pendientes; }
+}

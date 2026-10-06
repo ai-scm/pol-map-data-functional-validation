@@ -1,0 +1,24 @@
+digraph actualizaciones {
+ graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.4", ranksep="0.5", fontname="DejaVu Sans", label="Dos ritmos de actualización · horarios Colombia (UTC−05:00)", labelloc=t, fontsize=21, fontcolor="#002A66"];
+ node [shape=box, style="rounded,filled", fillcolor="#F6F6F6", color="#E0E0E0", fontname="DejaVu Sans", fontsize=13, fontcolor="#002A66", margin="0.18,0.13"];
+ edge [color="#003D73", fontname="DejaVu Sans", fontsize=11, fontcolor="#003D73"];
+ diario [label="SINCRONIZACIÓN DIARIA DE FUENTES", fillcolor="#DDF5FB"];
+ usuarios [label="18:30 · trigger usuarios\ncron(30 23 * * ? *) UTC\n→ Users_db_keycloak → S3"];
+ personal [label="19:00 · trigger personal\ncron(0 0 * * ? *) UTC\n→ scheduler → full load → S3"];
+ disponible [label="Disponibilidad después de completar los jobs\nLa hora de inicio no garantiza la hora de llegada", fillcolor="#E5F8EC"];
+ horario [label="RECARGAS SPICE HORARIAS · FULL_REFRESH", fillcolor="#DDF5FB"];
+ actividad [label="Actividad por fecha\nhourly-certifications-dashboard\nCada hora, alrededor de :06"];
+ personas [label="Personas y cobertura\nhourly-certifications-personas\nCada hora; minuto fijo no confirmado"];
+ respuestas [label="Preguntas y respuestas\nhourly-certifications-answers\nCada hora, alrededor de :30"];
+ parcial [label="Cada dataset conserva su propio corte\nCertificaciones: lectura DynamoDB durante la recarga\nUsuarios/personal: último Parquet disponible en S3"];
+ consulta [label="Al abrir el análisis, QuickSight consulta SPICE\nNo ejecuta automáticamente los jobs diarios\nPublicar visuales es un proceso independiente", fillcolor="#E5F8EC"];
+ diario -> usuarios; diario -> personal;
+ usuarios -> disponible; personal -> disponible;
+ disponible -> personas [label="último snapshot diario disponible"];
+ disponible -> horario [style=invis];
+ horario -> actividad; horario -> personas; horario -> respuestas;
+ actividad -> parcial; personas -> parcial; respuestas -> parcial;
+ parcial -> consulta;
+ { rank=same; usuarios; personal; }
+ { rank=same; actividad; personas; respuestas; }
+}
