@@ -41,6 +41,10 @@ Una medida sin nivel explícito se evalúa en el contexto de filtros del visual.
 - [Última actualización de datos migrados](ultima-actualizacion-de-datos-migrados/documentacion-tecnica.md)
 - [Control de ingesta de datos de planta nacional](tablero-de-control-ingesta-datos-planta-nacional/documentacion-tecnica.md)
 
+## Documentación relacionada
+
+La documentación de medidas de protección fue ubicada por el usuario en el módulo [Medidas de Protección en Violencia de Género](../Medidas-de-Protección-en-Violencia-de-Genero/README.md), con tableros operacional y gerencial.
+
 ## Procedimiento de conciliación
 
 1. Registrar fecha y hora de refresco de SPICE, fecha de la partición de Athena y corte de la fuente Policía.
