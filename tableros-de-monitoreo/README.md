@@ -14,12 +14,12 @@ No se versionan identificadores técnicos del dashboard ni URL internas. La ruta
 
 | Submódulo | Tipo | Hojas detectadas en análisis | Hojas publicadas | Documentación |
 |---|---|---:|---:|---|
-| Datos Sin Limpiar (SECAD) | Dashboard con hojas | 7 | 7 | [`datos-sin-limpiar-secad`](datos-sin-limpiar-secad/README.md) |
 | Métricas de Uso de la Plataforma | Dashboard con hojas | 5 | 2 | [`metricas-de-uso-de-la-plataforma`](metricas-de-uso-de-la-plataforma/README.md) |
-| Monitoreo Componentes | Vista única con contenido personalizado | No verificable | 1 vista externa | [`monitoreo-componentes`](monitoreo-componentes/README.md) |
 | Tablero Monitoreo Pedidos SECAD v3.0 | Vista única | 1 | 1 | [`tablero-monitoreo-pedidos-secad-v3-0`](tablero-monitoreo-pedidos-secad-v3-0/README.md) |
 | Última actualización de datos migrados | Dashboard con hojas | 6 | 5 | [`ultima-actualizacion-de-datos-migrados`](ultima-actualizacion-de-datos-migrados/README.md) |
 | Tablero de control ingesta datos planta nacional | Dashboard con hojas | 2 | 2 | [`tablero-de-control-ingesta-datos-planta-nacional`](tablero-de-control-ingesta-datos-planta-nacional/README.md) |
+
+> Los submódulos «Datos Sin Limpiar (SECAD)» y «Monitoreo Componentes» se retiraron de este módulo tras la revisión del `Inventario_Dashboards_IAPOL.xlsx`: correspondían a dashboards ya documentados en otros submódulos. El submódulo de certificaciones se documenta en [`certificacion-iapol`](certificacion-iapol/documentacion-tecnica.md), con el nombre funcional «Certificación IAPOL» tal como aparece en IAPOL.
 
 ## Documentos comunes
 
@@ -31,10 +31,9 @@ No se versionan identificadores técnicos del dashboard ni URL internas. La ruta
 
 | Elemento | Estado observado el 2026-09-04 | Alcance |
 |---|---|---|
-| Navegación al módulo y seis submódulos | Disponible | Verificación visual de acceso y carga del contenedor. |
-| Hojas publicadas | Inventariadas | 17 hojas visibles en cinco dashboards de Quick, más una vista externa de Monitoreo Componentes. |
-| Hojas internas de análisis | Inventariadas parcialmente | Se verificaron las 13 hojas de los tres análisis accesibles; Métricas contiene tres hojas no publicadas. |
-| Monitoreo Componentes | Bloqueado parcialmente | El contenido personalizado solicita autenticación de Google. |
+| Navegación al módulo y submódulos vigentes | Disponible | Verificación visual de acceso y carga del contenedor. |
+| Hojas publicadas | Inventariadas | Hojas visibles en los dashboards de Quick de los submódulos vigentes. |
+| Hojas internas de análisis | Inventariadas parcialmente | Métricas contiene tres hojas no publicadas. |
 | Validación Policía vs. Athena | Pendiente | Requiere consultas autorizadas con el mismo corte y reglas de negocio. |
 
 ## Convenciones aplicadas
