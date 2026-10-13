@@ -21,10 +21,6 @@ No se versionan identificadores técnicos del dashboard ni URL internas. La ruta
 | Última actualización de datos migrados | Dashboard con hojas | 6 | 5 | [`ultima-actualizacion-de-datos-migrados`](ultima-actualizacion-de-datos-migrados/README.md) |
 | Tablero de control ingesta datos planta nacional | Dashboard con hojas | 2 | 2 | [`tablero-de-control-ingesta-datos-planta-nacional`](tablero-de-control-ingesta-datos-planta-nacional/README.md) |
 
-## Documentación relacionada
-
-Los tableros operacional y gerencial de medidas de protección se documentan en el módulo [Medidas de Protección en Violencia de Género](../Medidas-de-Protección-en-Violencia-de-Genero/README.md).
-
 ## Documentos comunes
 
 - [`documentacion-tecnica.md`](documentacion-tecnica.md): activos, fuentes, filtros, fórmulas y asuntos pendientes.
