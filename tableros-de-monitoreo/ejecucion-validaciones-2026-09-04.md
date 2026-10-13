@@ -1,5 +1,7 @@
 # Ejecución de validaciones — 2026-09-04
 
+> **Nota posterior:** tras la revisión del `Inventario_Dashboards_IAPOL.xlsx`, los submódulos «Datos Sin Limpiar (SECAD)» y «Monitoreo Componentes» se retiraron del módulo por ser duplicados de tableros ya documentados, y el tablero «Certificación IAPOL» se trasladó a su módulo padre `certificacion-iapol`. Este documento se conserva como registro histórico de la ejecución del 2026-09-04 y no se reescribe.
+
 ## Alcance
 
 Validación funcional realizada sobre la interfaz autenticada de la aplicación y Amazon Quick. Se comprobaron navegación, carga, hojas, controles, respuesta de visuales y restablecimiento cuando fue posible. Las conciliaciones con Athena registradas como aprobadas se documentan por hoja en los README de cada submódulo; los ítems que aún requieren consulta, corte, catálogo o acceso autorizado permanecen como Bloqueado o Pendiente.
