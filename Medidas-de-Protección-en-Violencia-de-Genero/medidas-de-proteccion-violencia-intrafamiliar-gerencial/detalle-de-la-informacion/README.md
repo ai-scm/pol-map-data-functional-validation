@@ -58,12 +58,3 @@ El control `NÚMERO EXPEDIENTE` está enlazado a `counting`, no al número de ex
 
 Se combinan filtros globales y específicos del visual. El inventario íntegro, sus estados y los dos errores reportados están en [documentacion-tecnica.md](../documentacion-tecnica.md). No inferir alcance global a partir del nombre de un control.
 
-## Validaciones pendientes
-
-- [ ] Confirmar acceso a la hoja con el perfil autorizado y carga de todos los visuales.
-- [ ] Cambiar filtros y comprobar su alcance según la definición.
-- [ ] Comparar cifras o agrupaciones con la fuente usando el mismo corte.
-- [ ] Probar campos nulos, vacíos y selecciones sin resultados.
-- [ ] Restablecer controles y selecciones; registrar diferencias justificadas.
-
-Resultado funcional y de datos: `No ejecutado`. Las evidencias deben anonimizar identificaciones, nombres, expedientes, rutas de documentos y ubicaciones.
