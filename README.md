@@ -33,6 +33,8 @@ plantilla-modulo.md           # Plantilla base para documentar un módulo
 │   └── README.md
 ├── expertopol/
 │   └── README.md
+├── informacion-estadistica-delictiva/
+│   └── README.md
 └── tableros-de-monitoreo/
     └── README.md
 ```
