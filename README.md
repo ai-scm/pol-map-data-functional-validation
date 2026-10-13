@@ -39,6 +39,8 @@ plantilla-modulo.md           # Plantilla base para documentar un módulo
     └── README.md
 ```
 
+El módulo [Medidas de Protección en Violencia de Género](Medidas-de-Protección-en-Violencia-de-Genero/README.md) documenta los tableros operacional y gerencial de medidas de protección.
+
 - Cada carpeta de módulo usa el nombre funcional del módulo, sin prefijos numéricos.
 - Cada módulo documenta sus submódulos en su propio `README.md`.
 - Se pueden agregar nuevos módulos creando una carpeta adicional en la raíz, siguiendo la misma estructura.
