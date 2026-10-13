@@ -2,43 +2,85 @@
 
 ## Objetivo
 
-Mide adopción de la plataforma y uso de la herramienta de mapa de anticipación mediante usuarios, actividad e interacciones.
+Documenta el dashboard vigente `Actividad de usuarios en IAPOL`, orientado al seguimiento de usuarios con actividad y al volumen de eventos registrados en la plataforma.
+
+La documentación anterior fue retirada porque correspondía a un dashboard que ya no existe. Las hojas `Información de usuarios`, `Uso mapa anticipacion`, `Información de usuarios (Anterior)`, `Estadísticas de uso` y `Sheet 10` no pertenecen a la definición vigente recibida.
 
 ## Ruta funcional
 
 `Home > Tableros de Monitoreo > Métricas de Uso de la Plataforma`
 
-## Documentación técnica
+La ruta debe confirmarse en la aplicación. El JSON acredita el nombre del dashboard en Amazon Quick, pero no la etiqueta del menú ni los permisos de acceso.
 
-Las fórmulas verificadas, filtros compartidos, parámetros y particularidades de las ventanas temporales están en [`documentacion-tecnica.md`](documentacion-tecnica.md).
+## Identificación y alcance
 
-## Hojas
+| Elemento | Valor confirmado |
+|---|---|
+| Dashboard en Amazon Quick | `Actividad de usuarios en IAPOL` |
+| Estado de la definición | `CREATION_SUCCESSFUL` |
+| Errores reportados por la exportación | Ninguno |
+| Hojas | 2 |
+| Visuales | 16 |
+| Datasets | `eventos_IAPOL` y `User_Roles` |
+| Modo | SPICE en ambos datasets |
+| Campos calculados del dashboard | 48 |
+| Parámetros | 3 |
+| Grupos de filtros | 23: 18 habilitados y 5 deshabilitados |
+| Fecha de revisión documental | 2026-10-13 |
+| Validación en pantalla y de cifras | No ejecutada con esta definición |
 
-| Hoja del análisis | Publicación | Propósito | Documento |
-|---|---|---|---|
-| Información de usuarios | Publicada | Adopción, actividad y seguimiento de usuarios. | [`informacion-de-usuarios`](informacion-de-usuarios/README.md) |
-| Uso mapa anticipacion | Publicada | Usuarios e interacciones con el mapa de anticipación. | [`uso-mapa-anticipacion`](uso-mapa-anticipacion/README.md) |
-| Información de usuarios (Anterior) | No publicada | Versión anterior del seguimiento de usuarios y actividad. | [`informacion-de-usuarios-anterior`](informacion-de-usuarios-anterior/README.md) |
-| Estadísticas de uso | No publicada | Tendencia de usuarios e interacciones por tablero. | [`estadisticas-de-uso`](estadisticas-de-uso/README.md) |
-| Sheet 10 | No publicada | Serie técnica de usuarios distintos del mapa de anticipación. | [`sheet-10`](sheet-10/README.md) |
+## Hojas vigentes
 
-## Validaciones funcionales del submódulo
+| Hoja | Visuales | Propósito | Documento |
+|---|---:|---|---|
+| Actividad de usuarios en IAPOL | 9 | Seguimiento de actividad diaria, mensual, semestral y anual; estado de actividad y roles de ExpertoPol. | [actividad-de-usuarios-en-iapol](actividad-de-usuarios-en-iapol/README.md) |
+| Eventos de usuarios en IAPOL | 7 | Volumen de eventos por periodo, sigla, usuario y tipo de evento. | [eventos-de-usuarios-en-iapol](eventos-de-usuarios-en-iapol/README.md) |
 
-- [x] Las dos hojas publicadas son accesibles y cambian los controles y visuales. — Aprobado el 2026-09-04.
-- [x] Las tres hojas no publicadas están identificadas y no aparecen accidentalmente en el dashboard de producción. — Aprobado el 2026-09-04.
-- [x] Los filtros de periodo, sigla, dependencia y estado actualizan KPIs, gráficos y tablas. — Aprobado por configuración; `Estado` se ejecutó y refrescó los visuales.
-- [x] Los filtros de fecha de uso del mapa incluyen los extremos esperados. — Aprobado: Eventos controlados en ambos extremos y zona horaria confirmada.
-- [x] Las selecciones pueden restablecerse sin conservar filtros residuales. — Aprobado para la prueba de `Estado` mediante `Restablecer al original`.
-- [x] Las tablas de seguimiento no exponen usuarios fuera del alcance autorizado. — Aprobado: Se verifica con el estado de los 5 grados que se muestran.
+## Fuente de datos resumida
 
-## Validaciones de datos del submódulo
+Los dos datasets usan consultas SQL personalizadas sobre Athena:
 
-- Conciliar usuarios registrados, con ingreso, sin ingreso y activos.
-- Documentar la definición exacta de “activo” y la ventana temporal utilizada.
-- Conciliar interacciones por fecha y sigla con Athena.
-- Validar duplicados de eventos de uso y la llave de usuario anonimizada.
-- Verificar la exclusión o inclusión de usuarios inactivos y cuentas técnicas.
+```text
+eventos_IAPOL
+    users_keycloak
+        LEFT JOIN personal agrupado
+        LEFT JOIN event_table
 
-## Aceptación y resultados
+User_Roles
+    users_keycloak
+        LEFT JOIN personal agrupado
+        LEFT JOIN event_table
+        LEFT JOIN eventos
+        LEFT JOIN usuarios_roles
+```
 
-Aplican [`validaciones.md`](../validaciones.md). Los resultados de la ejecución realizada están en [`ejecucion-validaciones-2026-09-04.md`](../ejecucion-validaciones-2026-09-04.md). Cualquier evidencia de usuarios debe anonimizar nombres, correos e identificadores.
+Ambas consultas conservan únicamente usuarios con `sigla_laborando` informada. La definición completa, fórmulas, filtros y riesgos de agregación están en [documentacion-tecnica.md](documentacion-tecnica.md).
+
+## Validaciones funcionales pendientes
+
+- [ ] Confirmar la ruta del menú y el acceso de los perfiles autorizados.
+- [ ] Verificar que las dos hojas y sus 16 visuales carguen sin errores.
+- [ ] Comprobar el alcance real de cada control cuando la hoja mezcla datasets.
+- [ ] Verificar que el control de fecha mostrado en la hoja de eventos afecte algún visual de esa hoja.
+- [ ] Comprobar los KPI de hoy, mes, seis meses y año usando fechas en los límites.
+- [ ] Validar el Top 10 de siglas y usuarios, incluido su criterio de orden.
+- [ ] Verificar la exportación CSV y el acceso a tablas con atributos personales.
+
+## Validaciones de datos pendientes
+
+- Conciliar usuarios distintos y eventos con Athena usando el mismo instante de corte.
+- Confirmar si las sumas de campos `countOver(..., PRE_FILTER)` representan eventos sin duplicación.
+- Medir la multiplicación de filas producida por las uniones de eventos y roles en `User_Roles`.
+- Confirmar el tratamiento horario: `eventos_IAPOL` resta cinco horas, mientras `User_Roles` analiza una fecha parseada sin ajuste visible.
+- Verificar nulos, fechas futuras, usuarios sin eventos y usuarios con varias siglas, roles o registros de personal.
+- Confirmar la programación y la última ingesta exitosa de cada dataset SPICE.
+
+## Manejo de información sensible
+
+Los datasets contienen `username`, nombres, apellidos, correo, teléfono, dirección y atributos institucionales. La hoja de actividad incluye tablas con datos de usuario y la exportación CSV está habilitada. No se deben guardar filas reales, identificadores personales ni exportaciones productivas en este repositorio.
+
+Las definiciones recibidas no declaran seguridad por fila o columna. Esto no demuestra acceso abierto: los permisos del dashboard no forman parte de los archivos entregados y deben revisarse por separado.
+
+## Estado documental
+
+La estructura y configuración de Amazon Quick están documentadas con la evidencia disponible. El estado permanece **En verificación** hasta comprobar controles, permisos y cifras en la aplicación.

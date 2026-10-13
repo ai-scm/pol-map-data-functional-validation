@@ -1,299 +1,442 @@
 # Documentación técnica — Métricas de Uso de la Plataforma
 
-## Activos y publicación
+## Evidencia y alcance
 
-| Elemento | Valor verificado |
-|---|---|
-| Dashboard | `pon-prod-ts-metricas-uso-plataforma` |
-| Análisis | `eventos_IAPOL_metricas_uso analysis` |
-| Conjunto de datos | `eventos_IAPOL` |
-| Modo | SPICE |
-| Hojas publicadas | Información de usuarios; Uso mapa anticipacion |
+Esta documentación se reconstruyó el 2026-10-13 a partir de la definición del dashboard vigente y de las definiciones de sus dos datasets. Los JSON se usaron como evidencia técnica y permanecen fuera del repositorio.
 
-El análisis contiene además `Información de usuarios (Anterior)`, `Estadísticas de uso` y `Sheet 10`, marcadas como no publicadas. Sus objetos no forman parte del contrato funcional del dashboard actual, pero se incluyen en este inventario para cubrir todas las hojas del análisis.
-
-## Modelo lógico
-
-El conjunto combina información de usuario y eventos de interacción. El identificador técnico usado en las medidas es `username`; la documentación y las evidencias no deben registrar su valor, nombres, apellidos, correo, dirección ni otros atributos personales.
-
-Campos relevantes observados: `username`, `usuarios_policia`, `estado_empleado`, `estado_user`, `sigla`, `sigla_laborando`, `descripcion_dependencia`, `fecha_evento`, `event_time`, `name_item`, `dias_sin_interaccion` y los campos calculados descritos más adelante.
-
-## Filtros compartidos
-
-| Campo o condición | Alcance | Regla | Estado |
-|---|---|---|---|
-| `usuarios_policia` | Entre hojas | Igual a `1`. | Confirmado |
-| `estado_empleado` | Entre hojas | Incluye `AC`. | Confirmado |
-| `sigla_laborando = sigla` | Entre hojas | Condición observada en el panel de filtros. | Confirmado en configuración; validar la semántica de comparación entre campos |
-
-Estos filtros definen la población base. Un total calculado directamente sobre `eventos_IAPOL` sin aplicarlos no es comparable con el dashboard.
-
-## Hoja Información de usuarios
-
-### Controles y alcance
-
-| Control | Valor visible inicial | Aplicación observada |
+| Archivo de entrada | Contenido | SHA-256 |
 |---|---|---|
-| Periodo gráfico actividad | Últimos 7 meses | Controla el periodo del gráfico de actividad; confirmar si afecta otros visuales. |
-| Sigla | Todo | Filtro de hoja sobre `sigla_laborando`. |
-| Dependencia | Todo | Filtro de hoja sobre `descripcion_dependencia`. |
-| Estado | Todo | Filtro de hoja sobre `estado_user`. |
+| `dashboard-definition3.json` | Dashboard `Actividad de usuarios en IAPOL` | `2d8656e70abb265698aefe1e3b49a939062ac57438d96ef72afca324f140d7e6` |
+| `dataset-definition-1.json` | Dataset `eventos_IAPOL` | `63bca57d5f1f06fd91068b4c123bdff890fcdb35c248ab879421edce48e774eb` |
+| `dataset-definition-2.json` | Dataset `User_Roles` | `c595155201835efb4998ea76fe5b4c019184d64660daff142a3506a711927cd8` |
 
-Los tres filtros organizacionales se evalúan junto con la población base. La ventana “Últimos 7 meses” es móvil y debe convertirse en fechas concretas en cada ejecución.
+La referencia de cada dataset en el dashboard coincide con la definición recibida. No se consultaron el análisis editable, la pantalla embebida, los permisos del dashboard, los schedules de SPICE ni datos productivos.
 
-### Campos calculados confirmados
+La documentación anterior describía otro dashboard y fue retirada. Sus hojas, capturas, identificadores, resultados históricos y fórmulas visuales no se trasladan automáticamente al dashboard vigente.
 
-#### Estado actividad
+## Activos confirmados
 
-```text
-ifelse(
- {estado_user} = 'Sin ingreso', 'Nunca ingresó',
- {dias_sin_interaccion} <= 10, '0–10 días',
- {dias_sin_interaccion} <= 30, '11–30 días',
- {dias_sin_interaccion} <= 60, '31–60 días',
- 'Más de 60 días'
-)
-```
-
-La evaluación es secuencial. Un usuario `Sin ingreso` siempre se clasifica como `Nunca ingresó`, aun si el campo de días contiene un valor. Los umbrales 10, 30 y 60 son inclusivos.
-
-#### Etapa embudo
-
-```text
-ifelse(
- dateDiff({fecha_evento}, now(), "DD") <= 10, '3. Activos',
- {estado_user} = 'Sin ingreso', '1. Registrados',
- '2. Ingresaron'
-)
-```
-
-La condición de activo tiene prioridad. Debe revisarse qué ocurre con fechas futuras y nulas; una fecha futura puede producir una diferencia negativa y satisfacer `<= 10`.
-
-#### Primera fecha de ingreso
-
-```text
-minOver({fecha_evento}, [username], PRE_AGG)
-```
-
-Calcula la fecha mínima por usuario antes de la agregación del visual, dentro del contexto anterior aplicable.
-
-#### Ingreso antes del mes actual
-
-```text
-ifelse(
- isNull({Primera fecha de ingreso}), 0,
- {Primera fecha de ingreso} < truncDate('MM', now()), 1,
- 0
-)
-```
-
-Usa el inicio del mes calendario actual como límite exclusivo.
-
-#### Interacciones totales
-
-```text
-countOver({name_item}, [username], PRE_FILTER)
-```
-
-Al usar `PRE_FILTER`, el conteo por usuario se calcula antes de los filtros del análisis. No debe esperarse que todos los controles reduzcan este valor de la misma manera que una medida estándar.
-
-### KPI confirmados
-
-| KPI o campo | Expresión |
+| Elemento | Configuración |
 |---|---|
-| Total usuarios | `distinct_count(username)` |
-| Han ingresado | `distinct_countIf(username, {estado_user} = 'Con ingreso')` |
-| Nunca ingresaron | `distinct_countIf(username, {estado_user} = 'Sin ingreso')` |
-| Usuarios ingreso 10 días | `distinctCountIf(username, dateDiff({fecha_evento}, now(), "DD") <= 10)` |
-| Porcentaje activos 10 días | `{Usuarios_ingreso_10_dias} / distinct_count(username)` |
-| Porcentaje han ingresado | `distinct_countIf(username,{estado_user}='Con ingreso') / distinct_count(username)` |
-| Porcentaje nunca ingresaron | `distinct_countIf(username,{estado_user}='Sin ingreso') / distinct_count(username)` |
+| Dashboard | `Actividad de usuarios en IAPOL` |
+| Estado | `CREATION_SUCCESSFUL` |
+| Errores en la exportación | No reportados |
+| Hojas | `Actividad de usuarios en IAPOL`; `Eventos de usuarios en IAPOL` |
+| Visuales | 9 en H1 y 7 en H2 |
+| Datasets | `User_Roles`; `eventos_IAPOL` |
+| Modo | SPICE en ambos |
+| Campos calculados | 48: 9 sobre `User_Roles` y 39 sobre `eventos_IAPOL` |
+| Parámetros | `sigla`, `Fechainicio`, `Fechafin` |
+| Filtros | 23 grupos: 18 habilitados y 5 deshabilitados |
+| Acciones por clic | Ninguna en los 16 visuales |
 
-El denominador es el total distinto de usuarios en el contexto de filtros, salvo que Quick aplique una configuración adicional del visual. Un usuario con varios eventos se cuenta una sola vez en estas medidas.
+El JSON del dashboard no identifica el análisis que lo originó. No se conserva el nombre del análisis anterior como si correspondiera al activo vigente.
 
-### Comparaciones con el periodo anterior
+## Modelo de datos
+
+### Dataset `eventos_IAPOL`
+
+El dataset contiene una tabla física de tipo `CustomSql`, llamada `personal_agrupado` en la definición:
 
 ```text
-Porcentaje activos 10 días mes anterior =
-distinct_countIf(
- username,
- {fecha_evento} >= addDateTime(-10, 'DD', truncDate('MM', now()))
- AND {fecha_evento} < truncDate('MM', now())
-) / distinct_count(username)
+users_keycloak AS user
+LEFT JOIN usr_mnvcc.vm_personal_agrupado AS p
+    ON p.usuario_empresarial = user.username
+LEFT JOIN event_table AS ev
+    ON ev.username = user.username
+WHERE p.sigla_laborando IS NOT NULL
 ```
 
-La etiqueta “mes anterior” no usa todo el mes anterior: usa los diez días inmediatamente anteriores al inicio del mes actual.
+La consulta obtiene usuarios de `pon-prod-events`, personal de `pon-prod-raw-sivicc` y eventos de `pon-prod-events`.
+
+La tabla lógica aplica estas transformaciones:
+
+1. Renombra `fecha_evento` a `fecha_eventos`.
+2. Crea un nuevo `fecha_evento` con `addDateTime(-5, 'HH', fecha_eventos)`.
+3. Proyecta 35 columnas de salida.
+
+El ajuste de cinco horas está confirmado en la preparación de Quick, pero el JSON no explica la zona horaria original. No se debe documentar como conversión UTC→Colombia hasta confirmar el origen temporal.
+
+### Dataset `User_Roles`
+
+El dataset contiene una tabla física de tipo `CustomSql`:
 
 ```text
-Porcentaje ingresaron mes anterior =
-distinct_countIf(username,{Ingreso antes del mes actual}=1)
-/ distinct_count(username)
+users_keycloak AS user
+LEFT JOIN usr_mnvcc.vm_personal_agrupado AS p
+    ON p.usuario_empresarial = user.username
+LEFT JOIN event_table AS ev
+    ON ev.username = user.username
+LEFT JOIN eventos
+    ON eventos.user_id = user.id
+LEFT JOIN usuarios_roles AS roles
+    ON roles.user_id = user.id
+WHERE p.sigla_laborando IS NOT NULL
+```
+
+Expone 34 columnas. No declara `LogicalTableMap`; la fecha `fecha_evento_ev` se entrega como STRING y el dashboard crea `fecha_evento_eve` mediante `parseDate`.
+
+### Grano y multiplicación de filas
+
+Ninguna definición declara una llave única. El grano efectivo depende de las cardinalidades de personal, `event_table`, `eventos` y `usuarios_roles`.
+
+`User_Roles` une tres colecciones potencialmente multivaluadas directamente con el usuario. Si un usuario tiene varios eventos y roles, las combinaciones pueden multiplicarse. Antes de sumar eventos se debe medir:
+
+```text
+filas por usuario
+eventos distintos por usuario
+roles distintos por usuario
+combinaciones evento × rol
+```
+
+Los conteos distintos de `username` reducen el efecto sobre usuarios, pero no corrigen automáticamente sumas de interacciones, listados duplicados ni otras medidas a nivel de fila.
+
+## Campos de salida
+
+### `eventos_IAPOL` — 35 campos
+
+| Campo | Tipo | Campo | Tipo |
+|---|---|---|---|
+| `id` | STRING | `username` | STRING |
+| `first_name` | STRING | `last_name` | STRING |
+| `sigla` | STRING | `unidad` | STRING |
+| `created_timestamp` | DATETIME | `type` | STRING |
+| `event_time` | DATETIME | `estado_user` | STRING |
+| `direccion` | STRING | `fisica` | STRING |
+| `descripcion_dependencia` | STRING | `sigla_papa` | STRING |
+| `grad_alfabetico` | STRING | `apellidos` | STRING |
+| `nombres` | STRING | `estado_empleado` | STRING |
+| `especialidad` | STRING | `nombre_grado` | STRING |
+| `descripcion_cargo` | STRING | `correo_electronico` | STRING |
+| `usuario_empresarial` | STRING | `sigla_personal` | STRING |
+| `sigla_laborando` | STRING | `desc_categoria` | STRING |
+| `activo` | STRING | `desc_estado` | STRING |
+| `numero_celular` | DECIMAL | `action` | STRING |
+| `name_item` | STRING | `category` | STRING |
+| `fecha_eventos` | DATETIME | `parent` | STRING |
+| `fecha_evento` | DATETIME |  |  |
+
+### `User_Roles` — 34 campos
+
+| Campo | Tipo | Campo | Tipo |
+|---|---|---|---|
+| `id` | STRING | `username` | STRING |
+| `first_name` | STRING | `last_name` | STRING |
+| `sigla` | STRING | `unidad` | STRING |
+| `created_timestamp` | DATETIME | `type` | STRING |
+| `event_time` | DATETIME | `estado_user` | STRING |
+| `direccion` | STRING | `fisica` | STRING |
+| `descripcion_dependencia` | STRING | `sigla_papa` | STRING |
+| `grad_alfabetico` | STRING | `apellidos` | STRING |
+| `nombres` | STRING | `estado_empleado` | STRING |
+| `especialidad` | STRING | `nombre_grado` | STRING |
+| `descripcion_cargo` | STRING | `correo_electronico` | STRING |
+| `usuario_empresarial` | STRING | `sigla_personal` | STRING |
+| `sigla_laborando` | STRING | `desc_categoria` | STRING |
+| `activo` | STRING | `desc_estado` | STRING |
+| `numero_celular` | DECIMAL | `name_item` | STRING |
+| `fecha_evento_dia` | DATETIME | `fecha_evento_ev` | STRING |
+| `rol` | STRING | `group_name` | STRING |
+
+## Población base
+
+La población se restringe por dos mecanismos:
+
+1. Ambas consultas SQL exigen `p.sigla_laborando IS NOT NULL`.
+2. El dashboard aplica filtros sobre correo institucional, estado laboral y sigla.
+
+Para `eventos_IAPOL`:
+
+```text
+usuarios_policia = ifelse(
+  contains(correo_electronico, '@correo.policia.gov.co'),
+  1,
+  0
+)
+```
+
+Para `User_Roles`:
+
+```text
+usuarios_ponal = ifelse(
+  contains(correo_electronico, '@correo.policia.gov.co'),
+  1,
+  0
+)
+```
+
+El dashboard filtra ambos indicadores a `1` y `estado_empleado` a `AC`. La validación debe confirmar mayúsculas, espacios, correos nulos y dominios alternativos autorizados.
+
+## Parámetros
+
+| Parámetro | Tipo | Valor inicial | Uso vigente |
+|---|---|---|---|
+| `sigla` | STRING, valor único | Sin valor estático | Usado por F03 en `eventos_IAPOL` y F20 en `User_Roles`. |
+| `Fechainicio` | DATETIME | Inicio del mes anterior | Sólo aparece en F12 y F15, ambos deshabilitados. |
+| `Fechafin` | DATETIME | Inicio del día actual | Sólo aparece en F12 y F15, ambos deshabilitados. |
+
+Los parámetros de fecha no limitan actualmente los visuales. Las ventanas temporales activas se calculan con `now()` o mediante filtros relativos.
+
+## Campos calculados utilizados por los visuales vigentes
+
+### Fechas y estado de actividad — `User_Roles`
+
+```text
+fecha_evento_eve =
+parseDate(fecha_evento_ev, "yyyy-MM-dd HH:mm:ss")
 ```
 
 ```text
-Porcentaje nunca ingresaron mes anterior =
-1 - {Porcentaje ingresaron mes anterior}
+dias_sin_interaccion =
+abs(dateDiff(now(), maxOver(fecha_evento_eve, [username], PRE_AGG), "DD"))
 ```
 
-Las variaciones están definidas como resta simple:
-
 ```text
-Variación activos 10 días vs mes anterior =
-{Porcentaje Activos 10 días} - {Porcentaje activos 10 días mes anterior}
-
-Variación ingreso vs mes anterior =
-{Porcentaje Han ingresado} - {Porcentaje ingresaron mes anterior}
-
-Variación nunca ingresaron vs mes anterior =
-{Porcentaje Nunca ingresaron} - {Porcentaje nunca ingresaron mes anterior}
+estado_actividad =
+ifelse(
+  estado_user = 'Sin ingreso', 'Nunca ingresó',
+  dias_sin_interaccion <= 10, '0–10 días',
+  dias_sin_interaccion <= 30, '11–30 días',
+  dias_sin_interaccion <= 60, '31–60 días',
+  'Más de 60 días'
+)
 ```
 
-Estas medidas expresan diferencia absoluta de proporciones, es decir, puntos porcentuales cuando se formatean como porcentaje; no son una tasa de crecimiento relativa.
+El uso de `abs` convierte fechas futuras en días positivos y puede ocultar problemas de calidad. Además, el filtro F22 excluye fechas nulas antes de visualizar `estado_actividad`.
 
-### Totales del embudo
+### Usuarios distintos — `User_Roles`
 
 ```text
-Total embudo activos =
-distinctCountOver(
- ifelse(dateDiff({fecha_evento}, now(), "DD") <= 10, username, NULL),
- [], PRE_AGG
+usuarios_actividad_mes =
+distinctCountIf(
+  username,
+  truncDate("MM", parseDate(fecha_evento_ev, "yyyy-MM-dd HH:mm:ss"))
+    = truncDate("MM", now())
 )
 ```
 
 ```text
-Total embudo ingresaron =
-distinctCountOver(
- ifelse({estado_user}='Con ingreso', username, NULL),
- [], PRE_AGG
+usuarios_activos_6_meses =
+distinctCountIf(
+  username,
+  dateDiff(parseDate(fecha_evento_ev, "yyyy-MM-dd HH:mm:ss"), now(), "MM") <= 6
 )
 ```
 
 ```text
-Total embudo registrados =
-distinctCountOver(username, [], PRE_AGG)
+usuarios_actividad_año =
+distinctCountIf(username, isNotNull(fecha_evento_ev))
 ```
 
-La fórmula del campo `Valor embudo` no pudo extraerse y queda pendiente. No debe reconstruirse sólo a partir del nombre de las etapas.
+`usuarios_actividad_año` depende del filtro F22 para obtener alcance anual; su expresión sola cuenta cualquier fecha no nula disponible en el contexto.
 
-## Hoja Uso mapa anticipacion
+### Usuarios del día y última actividad — `eventos_IAPOL`
 
-### Filtros confirmados
+```text
+Usuarios_ingreso_dia_actual =
+distinctCountIf(
+  username,
+  truncDate("DD", fecha_evento) = truncDate("DD", now())
+)
+```
 
-| Campo | Regla |
+```text
+ultima_fecha_actividad =
+maxOver(fecha_evento, [username], PRE_AGG)
+```
+
+### Conteos de eventos — `eventos_IAPOL`
+
+```text
+eventos_ultimo_mes =
+countOver(
+  ifelse(dateDiff(fecha_evento, now(), "DD") <= 30, name_item, NULL),
+  [username],
+  PRE_FILTER
+)
+```
+
+```text
+eventos_ultimos_6_meses =
+countOver(
+  ifelse(dateDiff(fecha_evento, now(), "MM") <= 6, name_item, NULL),
+  [username],
+  PRE_FILTER
+)
+```
+
+```text
+eventos_usuarios_año =
+countOver(
+  ifelse(truncDate("YYYY", fecha_evento) = truncDate("YYYY", now()), name_item, NULL),
+  [username],
+  PRE_FILTER
+)
+```
+
+```text
+eventos_usuarios_hoy =
+countOver(
+  ifelse(truncDate("DD", fecha_evento) = truncDate("DD", now()), name_item, NULL),
+  [username],
+  PRE_FILTER
+)
+```
+
+```text
+Interacciones totales =
+countOver(name_item, [username], PRE_FILTER)
+```
+
+Todos estos campos se agregan mediante `SUM` en H2. Un `countOver` devuelve el conteo de la partición en cada fila de esa partición; sumarlo puede repetir el valor. Esta configuración requiere conciliación antes de aceptar los KPI como conteos de eventos.
+
+### Roles homologados — `User_Roles`
+
+`grupos_chatbot` convierte seis valores de `group_name` en etiquetas funcionales para H1-V08. Cualquier otro grupo produce NULL y queda fuera por F23.
+
+## Campos calculados heredados sin uso directo en los visuales actuales
+
+La definición conserva campos de adopción, embudo y homologación que no aparecen directamente en los pozos de los 16 visuales ni como medidas vigentes:
+
+- `Estado actividad`, `Etapa embudo`, `Ingreso antes del mes actual`.
+- `KPI Total usuarios`, `KPI Han ingresado`, `KPI Nunca ingresaron`.
+- `Porcentaje Activos 10 días`, `Porcentaje Han ingresado`, `Porcentaje Nunca ingresaron`.
+- Porcentajes del periodo anterior y sus tres variaciones.
+- `Primera fecha de ingreso`, `Total embudo activos`, `Total embudo ingresaron`, `Total embudo registrados`, `Valor embudo`.
+- `Usuarios_ingreso_10_dias`, `Usuarios_ingreso_durante_2026`, `Usuarios_ingreso_ultima_30_dias`, `Usuarios_ingreso_ultima_semana`.
+- `SIgla_laborando_ME_DE`, `sigla_laborando_EXCLUIR_ME_DE`, `rol_dominante_user`, `ultimaInteraccion`.
+- `parent_corregido_para_null_manual`, que contiene una homologación extensa de elementos y módulos.
+- `eventos_usuarios_año` de `User_Roles`.
+
+`dias_sin_interaccion` de `User_Roles` sí participa indirectamente en `estado_actividad`. `es_evento_hoy` participa únicamente en F08, que está deshabilitado.
+
+La presencia de un campo calculado no demuestra que el dashboard vigente lo muestre. Estos campos deben tratarse como configuración heredada hasta revisar el análisis editable.
+
+## Inventario de filtros
+
+| Ref. | Estado | Dataset | Campo | Alcance y regla |
+|---|---|---|---|---|
+| F01 | Habilitado | `eventos_IAPOL` | `usuarios_policia` | Todas las hojas/datasets; igual a `1`. |
+| F02 | Habilitado | `eventos_IAPOL` | `estado_empleado` | Todas las hojas; incluye `AC`, excluye nulos. |
+| F03 | Habilitado | `eventos_IAPOL` | `sigla_laborando` | Todas las hojas; igual al parámetro `sigla`. |
+| F04 | Habilitado | `eventos_IAPOL` | `sigla_laborando` | Todos los visuales de H1 y H2; lista inicialmente en todos los valores, excluye nulos. |
+| F05 | Habilitado | `eventos_IAPOL` | `descripcion_dependencia` | Todos los visuales de H1 y H2; inicialmente todos, excluye nulos. |
+| F06 | Habilitado | `eventos_IAPOL` | `estado_user` | Todos los visuales de H1 y H2; inicialmente todos, excluye nulos. |
+| F07 | Deshabilitado | `eventos_IAPOL` | `fecha_evento` | Rango fijo 2026-01-01 a 2026-09-10, extremos incluidos. |
+| F08 | Deshabilitado | `eventos_IAPOL` | `es_evento_hoy` | H1-V03; igual a `1`. |
+| F09 | Habilitado | `User_Roles` | `fecha_evento_eve` | H1-V06; año actual, excluye nulos. |
+| F10 | Habilitado | `eventos_IAPOL` | `Usuarios_ingreso_dia_actual` | H1-V03; igual a `1`. |
+| F11 | Habilitado | `eventos_IAPOL` | `username` | H2-V02; Top 10 ordenado por `SUM(Interacciones totales)`. |
+| F12 | Deshabilitado | `eventos_IAPOL` | `fecha_evento` | H2-V02; entre `Fechainicio` incluido y `Fechafin` excluido. |
+| F13 | Habilitado | `eventos_IAPOL` | `descripcion_dependencia` | H2-V02; inicialmente todos, excluye nulos. |
+| F14 | Deshabilitado | `eventos_IAPOL` | `username` | H2-V01; Top 10 por `SUM(Interacciones totales)`. |
+| F15 | Deshabilitado | `eventos_IAPOL` | `fecha_evento` | H2-V01; entre `Fechainicio` incluido y `Fechafin` excluido. |
+| F16 | Habilitado | `eventos_IAPOL` | `descripcion_dependencia` | H2-V01; inicialmente todos, excluye nulos. |
+| F17 | Habilitado | `eventos_IAPOL` | `sigla_laborando` | H2-V01; Top 10 por conteo descendente de la dimensión. |
+| F18 | Habilitado | `User_Roles` | `usuarios_ponal` | Todas las hojas; igual a `1`, excluye nulos. |
+| F19 | Habilitado | `User_Roles` | `estado_empleado` | Todas las hojas; incluye `AC`, excluye nulos. |
+| F20 | Habilitado | `User_Roles` | `sigla_laborando` | Todas las hojas; igual al parámetro `sigla`. |
+| F21 | Habilitado | `User_Roles` | `sigla_laborando` | Todas las hojas; lista inicialmente en todos los valores, excluye nulos. |
+| F22 | Habilitado | `User_Roles` | `fecha_evento_eve` | Todas las hojas; año actual, excluye nulos. |
+| F23 | Habilitado | `User_Roles` | `grupos_chatbot` | H1-V08; incluye las seis etiquetas homologadas. |
+
+F01 declara alcance `ALL_DATASETS`; los demás filtros declaran `SINGLE_DATASET`. Aunque varios indiquen “todas las hojas”, sólo pueden afectar visuales compatibles con su dataset.
+
+## Controles por hoja
+
+| Hoja | Control | Filtro fuente | Observación |
+|---|---|---|---|
+| H1 | Estado | F06, `eventos_IAPOL.estado_user` | No filtra directamente los siete visuales de `User_Roles`. |
+| H1 | Sigla | F21, `User_Roles.sigla_laborando` | No filtra directamente H1-V03 y H1-V04. |
+| H1 | fecha_evento_eve | F22, `User_Roles.fecha_evento_eve` | Año actual; el título técnico debe revisarse para usuarios finales. |
+| H1 | Estado Empleado | F19, `User_Roles.estado_empleado` | Incluye `AC`. |
+| H2 | Sigla | F04, `eventos_IAPOL.sigla_laborando` | Compatible con los siete visuales. |
+| H2 | Estado | F06, `eventos_IAPOL.estado_user` | Compatible con los siete visuales. |
+| H2 | fecha_evento_eve | F22, `User_Roles.fecha_evento_eve` | H2 no contiene visuales de `User_Roles`; no tiene efecto evidente. |
+
+## Publicación
+
+- Exportación CSV habilitada.
+- Exportación con campos ocultos deshabilitada.
+- Filtros ad hoc deshabilitados.
+- Controles de hoja inicialmente colapsados.
+- Menú, maximización, ordenamiento de ejes, drill y tooltips habilitados.
+- Q&A y acciones de Quick Suite deshabilitados.
+- Resumen ejecutivo y Data Stories habilitados.
+
+No hay acciones por punto de datos en los visuales. La definición no contiene reglas de seguridad por fila ni por columna en los datasets. Se deben revisar los permisos del dashboard antes de aprobar la exposición o exportación de datos personales.
+
+## Actualización y trazabilidad pendientes
+
+| Información | Estado |
 |---|---|
-| `fecha_evento` | Entre los parámetros `Fechainicio` y `Fechafin`. |
-| `name_item` | Incluye `Mapa de Anticipación a Fenómenos de Seguridad`. |
-| `estado_empleado` | Control visible en `AC`; además existe el filtro compartido. |
-| `sigla` | Control `SIGLA`, valor visible inicial `Todo`. |
+| Última modificación de `eventos_IAPOL` en la definición recibida | 2026-10-13 12:04:35, hora Colombia |
+| Última modificación de `User_Roles` en la definición recibida | 2026-10-13 01:06:37, hora Colombia |
+| Programación SPICE | No incluida |
+| Historial y última ingesta exitosa | No incluido |
+| Frecuencia de las tablas fuente | No incluida |
+| Responsables de los procesos | Pendiente por confirmar |
 
-La hoja mide únicamente interacciones cuyo elemento coincide con el nombre indicado. Variaciones de mayúsculas, tildes o renombramientos del evento pueden quedar fuera si la condición es una igualdad o inclusión exacta.
+`LastUpdatedTime` es un metadato del dataset. No demuestra cuándo ingresaron los datos ni que una recarga SPICE haya terminado correctamente.
 
-Se observó un visual de detalle con `fecha_evento` máxima por atributos de usuario, oculto mediante una regla. Su existencia no autoriza exponer los datos personales subyacentes.
+## Hallazgos prioritarios
 
-## Hojas internas no publicadas
+1. **Posible sobreconteo:** los KPI y rankings de H2 suman campos `countOver(..., PRE_FILTER)` potencialmente repetidos por fila.
+2. **Control de fecha sin consumidor en H2:** el control visible usa `User_Roles`, mientras los siete visuales usan `eventos_IAPOL`.
+3. **Filtros fragmentados en H1:** Estado pertenece a `eventos_IAPOL`; Sigla, fecha y estado laboral pertenecen a `User_Roles`.
+4. **Usuarios sin ingreso posiblemente excluidos:** F22 elimina fechas nulas antes de mostrar `estado_actividad`.
+5. **Ranking y medida distintos:** H2-V02 ordena por `Interacciones totales` y muestra `eventos_usuarios_año`; H2-V01 ordena siglas por conteo de sigla y muestra otra medida.
+6. **Multiplicación en `User_Roles`:** las uniones independientes de eventos y roles pueden producir combinaciones múltiples por usuario.
+7. **Tratamiento horario diferente:** `eventos_IAPOL` resta cinco horas; `User_Roles` sólo parsea un texto de fecha en la definición disponible.
+8. **Datos personales exportables:** las tablas contienen información identificable y CSV está habilitado; falta evidencia de permisos efectivos.
 
-### Información de usuarios (Anterior)
+Estos hallazgos provienen de la configuración. No se registran como fallas confirmadas hasta reproducir su efecto con datos autorizados.
 
-Versión anterior con KPI de total, ingreso, falta de ingreso y actividad en diez días; tabla de seguimiento; usuarios activos por sigla; y un Top 10 por acciones. Hereda los filtros de población y añade controles de sigla, estado de empleado y dependencia. El detalle completo está en [`informacion-de-usuarios-anterior/README.md`](informacion-de-usuarios-anterior/README.md).
+## Procedimiento de conciliación
 
-Esta hoja presenta dos riesgos de mantenimiento: puede conservar lógica obsoleta frente a la versión vigente y el Top 10 aparece configurado como recuento de un campo ya calculado. No debe utilizarse como fuente oficial mientras permanezca no publicada.
+1. Registrar el instante de corte, zona horaria y últimas ingestas exitosas de ambos datasets.
+2. Obtener el conteo base de filas, usuarios distintos, eventos y roles por usuario antes y después de cada unión.
+3. Aplicar la misma población: sigla informada, correo institucional y empleado `AC`.
+4. Reproducir cada ventana temporal con límites concretos en vez de evaluar `now()` en momentos distintos.
+5. Comparar el conteo directo de eventos con el resultado de sumar el `countOver` por usuario.
+6. Ejecutar la prueba con y sin filtros de Sigla, Estado, dependencia y fecha.
+7. Verificar los criterios de orden de los Top 10 por separado de la medida mostrada.
+8. Registrar únicamente resultados agregados; no copiar nombres, correos, teléfonos, direcciones o usuarios.
 
-### Estadísticas de uso
-
-Contiene:
-
-- recuento de `username` por `fecha_evento`, filtrado entre `Fechainicio` y `Fechafin` y excluyendo siglas homologadas nulas;
-- suma de `Interacciones Totales` por `parent_corregido_para_null_manual`, con `category = Dashboard`, padre no nulo y filtro de fechas;
-- conteo distinto de `username` por padre, también con padre no nulo y filtro de fechas.
-
-La suma de `Interacciones Totales` requiere revisión porque ese campo usa `PRE_FILTER` y puede repetirse en varias filas. Véase [`estadisticas-de-uso/README.md`](estadisticas-de-uso/README.md).
-
-### Sheet 10
-
-Contiene una sola serie de conteo distinto de `username` por `fecha_evento`, filtrada por el elemento `Mapa de Anticipación a Fenómenos de Seguridad` y por el periodo fijo 2026-01-01 a 2026-06-10. No tiene controles observados y su periodo quedará obsoleto. Véase [`sheet-10/README.md`](sheet-10/README.md).
-
-## Pruebas técnicas mínimas
-
-1. Evaluar los límites exactos de 10, 30 y 60 días, además de nulos y fechas futuras.
-2. Confirmar que `Total usuarios = Han ingresado + Nunca ingresaron` para el mismo corte, o documentar estados adicionales.
-3. Comparar usuarios distintos, no cantidad de eventos, para los KPI de adopción.
-4. Comparar eventos para las métricas de interacción y revisar duplicados por identificador de evento.
-5. Congelar la fecha de evaluación de `now()` en la conciliación; ejecutar en días distintos cambia el resultado.
-6. Probar extremos inclusivos de `Fechainicio` y `Fechafin`.
-7. Verificar que cuentas técnicas, usuarios no Policía y empleados distintos de `AC` queden fuera.
-8. Confirmar que las tres hojas internas continúen no publicadas hasta resolver sus diferencias de agregación y periodos fijos.
-
-## Asuntos pendientes
-
-- Tabla física de Athena, consulta de preparación, programación de SPICE y zona horaria.
-- Fórmula de `Valor embudo`.
-- Alcance exacto del control `Periodo gráfico actividad`.
-- Semántica completa de la condición `sigla_laborando = sigla`.
-- Tratamiento de fechas futuras y nulas en las expresiones con `dateDiff`.
-
-## Consultas Athena orientativas
-
-Estas consultas siguen la [plantilla SQL orientativa del módulo](../documentacion-tecnica.md#plantilla-sql-orientativa) y traducen a SQL las expresiones confirmadas del análisis. El identificador `username` es sensible: no registrar su valor ni otros atributos personales en la evidencia. Antes de ejecutar, materializar `now()` a un instante fijo del corte y sustituir los marcadores `<...>`: catálogo/esquema físico, tabla real que alimenta SPICE y zona horaria.
-
-Toda comparación con el dashboard debe aplicar primero la **población base** (filtros compartidos), de lo contrario los totales no son comparables.
-
-### Población base (filtros compartidos)
+### Consulta conceptual para detectar multiplicación
 
 ```sql
--- Condición reutilizable en todas las medidas de la hoja Información de usuarios.
--- usuarios_policia = 1 AND estado_empleado incluye 'AC' AND sigla_laborando = sigla
-WHERE usuarios_policia = 1
-  AND estado_empleado = 'AC'
-  AND sigla_laborando = sigla
-```
-
-### KPI de adopción (hoja Información de usuarios)
-
-```sql
--- Total usuarios, han ingresado y nunca ingresaron: cuentan usuarios DISTINTOS, no eventos.
 SELECT
-    COUNT(DISTINCT username)                                                        AS total_usuarios,
-    COUNT(DISTINCT CASE WHEN estado_user = 'Con ingreso' THEN username END)         AS han_ingresado,
-    COUNT(DISTINCT CASE WHEN estado_user = 'Sin ingreso' THEN username END)         AS nunca_ingresaron
-FROM <catalogo>.<esquema>.<tabla_eventos_iapol>
-WHERE usuarios_policia = 1
-  AND estado_empleado = 'AC'
-  AND sigla_laborando = sigla;
+    username,
+    COUNT(*) AS filas_resultantes,
+    COUNT(DISTINCT <id_evento>) AS eventos_distintos,
+    COUNT(DISTINCT <id_rol>) AS roles_distintos
+FROM <consulta_user_roles>
+GROUP BY username
+HAVING COUNT(*) > GREATEST(
+    COUNT(DISTINCT <id_evento>),
+    COUNT(DISTINCT <id_rol>)
+);
 ```
 
-### Usuarios activos en 10 días
+Los identificadores de evento y rol no están expuestos en las columnas de salida recibidas. Deben confirmarse en las tablas fuente antes de convertir la consulta conceptual en una validación ejecutable.
+
+### Comparación conceptual de eventos
 
 ```sql
--- distinctCountIf(username, dateDiff(fecha_evento, now(), "DD") <= 10)
--- Reemplazar TIMESTAMP '<now_corte>' por el instante fijo de la conciliación.
+WITH eventos_por_usuario AS (
+    SELECT
+        username,
+        COUNT(name_item) AS eventos_directos
+    FROM <fuente_equivalente_eventos_iapol>
+    WHERE fecha_evento >= TIMESTAMP '<inicio>'
+      AND fecha_evento < TIMESTAMP '<fin_exclusivo>'
+    GROUP BY username
+)
 SELECT
-    COUNT(DISTINCT CASE
-        WHEN date_diff('day', fecha_evento, TIMESTAMP '<now_corte>') <= 10
-        THEN username END)                                                          AS usuarios_activos_10d,
-    COUNT(DISTINCT username)                                                        AS total_usuarios
-FROM <catalogo>.<esquema>.<tabla_eventos_iapol>
-WHERE usuarios_policia = 1
-  AND estado_empleado = 'AC'
-  AND sigla_laborando = sigla;
--- Porcentaje activos 10 días = usuarios_activos_10d / total_usuarios
--- Revisar fechas futuras/nulas: una diferencia negativa también satisface <= 10.
+    SUM(eventos_directos) AS eventos_directos,
+    SUM(eventos_directos * eventos_directos) AS referencia_repeticion_cuadratica
+FROM eventos_por_usuario;
 ```
 
-### Hoja Uso mapa anticipacion — interacciones con el elemento
-
-```sql
--- Filtros confirmados: fecha_evento entre parámetros, name_item incluye el mapa,
--- estado_empleado 'AC' y población base compartida.
-SELECT COUNT(DISTINCT username) AS usuarios_con_interaccion
-FROM <catalogo>.<esquema>.<tabla_eventos_iapol>
-WHERE fecha_evento >= TIMESTAMP '<Fechainicio>'
-  AND fecha_evento <= TIMESTAMP '<Fechafin>'
-  AND name_item = 'Mapa de Anticipación a Fenómenos de Seguridad'
-  AND usuarios_policia = 1
-  AND estado_empleado = 'AC'
-  AND sigla_laborando = sigla;
-```
-
-> Pendiente antes de ejecutar: catálogo/esquema, tabla física y zona horaria; congelar `now()` en la conciliación; confirmar la semántica de `sigla_laborando = sigla` y el tratamiento de fechas futuras/nulas en las expresiones con `dateDiff`. Las hojas internas (`Información de usuarios (Anterior)`, `Estadísticas de uso`, `Sheet 10`) permanecen no publicadas y no deben usarse como fuente oficial.
-
-[Volver a la documentación técnica del módulo](../documentacion-tecnica.md)
+La segunda cifra sólo ilustra el riesgo de repetir un conteo por cada fila. El resultado exacto de Quick depende de los filtros y del número de filas que llegan a cada visual.

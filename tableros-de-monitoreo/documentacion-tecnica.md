@@ -4,7 +4,7 @@
 
 Este documento relaciona los seis accesos del módulo con sus activos de Amazon Quick, análisis y conjuntos de datos. La documentación de cada submódulo detalla filtros, parámetros, campos calculados, agregaciones, alcance temporal, dependencias y pruebas técnicas.
 
-La inspección se realizó el 2026-09-04 sobre los dashboards publicados y, cuando estuvo disponible, sobre el análisis editable. No se copiaron valores de registros productivos, datos personales, coordenadas, teléfonos, credenciales ni URL internas.
+La inspección inicial se realizó el 2026-09-04 sobre los dashboards publicados y, cuando estuvo disponible, sobre el análisis editable. Métricas de Uso fue actualizado documentalmente el 2026-10-13 con la definición de su dashboard vigente y dos datasets. No se copiaron valores de registros productivos, datos personales, coordenadas, teléfonos, credenciales ni URL internas.
 
 ## Convención de evidencia
 
@@ -20,7 +20,7 @@ La inspección se realizó el 2026-09-04 sobre los dashboards publicados y, cuan
 | Submódulo | ID proporcionado | Dashboard en Quick | Análisis informado | Conjunto de datos observado | Estado técnico |
 |---|---|---|---|---|---|
 | Datos Sin Limpiar (SECAD) | `f41770e9-82ef-4101-b286-584b63bb0d96` | `pon-prod-ts-informe-datos-sin-modificacion-datalake` | `pon-prod-ts-informe-datos-sin-modificacion-datalake` | `llamada_autoupdate` (SPICE) | Análisis disponible. |
-| Métricas de Uso de la Plataforma | `02989568-503e-46ed-8d01-2311bc5f6707` | `pon-prod-ts-metricas-uso-plataforma` | `eventos_IAPOL_metricas_uso analysis` | `eventos_IAPOL` (SPICE) | Análisis disponible. |
+| Métricas de Uso de la Plataforma | No versionado | `Actividad de usuarios en IAPOL` | No incluido en la evidencia vigente | `eventos_IAPOL`, `User_Roles` (SPICE) | Dashboard y SQL de ambos datasets disponibles; validación en pantalla pendiente. |
 | Monitoreo Componentes | `a2f9a0d2-07b5-40b3-ab99-8a6254725378` | No encontrado | No informado | No identificado | Pendiente; el contenido solicita autenticación externa. |
 | Tablero Monitoreo Pedidos SECAD v3.0 | `1ddbf100-16b1-45a3-a388-5f5fd3dec7bf` | `Tablero Monitoreo Pedidos SECAD v3.0` | `vw_pedidos_secad analysis` | `vw_pedidos_secad_v2` (SPICE) | Análisis disponible. |
 | Última actualización de datos migrados | `8cae6307-9b57-4c94-beb3-ae8c7ee7e04f` | `migracion_tablas` | `utima_actualizacion_tablas analysis` | `utima_actualizacion_tablas` | El nombre informado no aparece en el catálogo de análisis accesible. |
@@ -70,7 +70,7 @@ GROUP BY <dimension>;
 
 ## Aspectos todavía no demostrados
 
-- Tablas físicas, consultas SQL y transformaciones anteriores a SPICE.
+- Tablas físicas, consultas SQL y transformaciones anteriores a SPICE de los activos para los que no se recibieron definiciones. En Métricas de Uso sí están documentadas las consultas de los dos datasets vigentes.
 - Programación y fecha exacta del refresco de cada conjunto de datos.
 - Listas completas resumidas en Quick como “y más”.
 - Fórmulas de los campos o KPI que el análisis no permitió abrir.

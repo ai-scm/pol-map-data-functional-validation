@@ -31,6 +31,8 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 
 ### Métricas de Uso de la Plataforma
 
+> **Evidencia histórica:** estos resultados corresponden al dashboard retirado. No validan el dashboard vigente `Actividad de usuarios en IAPOL`, documentado el 2026-10-13.
+
 | Prueba | Resultado | Evidencia |
 |---|---|---|
 | Hojas publicadas | Aprobado | El dashboard publicado expone únicamente Información de usuarios y Uso mapa anticipacion. |
@@ -75,6 +77,8 @@ Validación funcional realizada sobre la interfaz autenticada de la aplicación 
 ## Resultado general
 
 **Aprobado parcialmente con bloqueos pendientes.** Las pruebas funcionales resultaron mayoritariamente aprobadas y varias hojas registran su conciliación con Athena como aprobada. El módulo no puede declararse aprobado de forma integral mientras persistan los bloqueos vigentes: Monitoreo Componentes (autenticación externa), Uso mapa anticipacion (conciliación y frontera de fechas), coherencia semana/corte del Control de ingesta y las conciliaciones de Historia y Patrullas en Datos Sin Limpiar.
+
+El bloqueo de `Uso mapa anticipacion` pertenece al dashboard de Métricas retirado y se conserva sólo como antecedente de esta ejecución. No aplica como resultado del dashboard vigente.
 
 ## Hallazgos que requieren seguimiento
 
