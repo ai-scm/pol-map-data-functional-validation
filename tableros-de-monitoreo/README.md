@@ -21,6 +21,14 @@ No se versionan identificadores técnicos del dashboard ni URL internas. La ruta
 | Última actualización de datos migrados | Dashboard con hojas | 6 | 5 | [`ultima-actualizacion-de-datos-migrados`](ultima-actualizacion-de-datos-migrados/README.md) |
 | Tablero de control ingesta datos planta nacional | Dashboard con hojas | 2 | 2 | [`tablero-de-control-ingesta-datos-planta-nacional`](tablero-de-control-ingesta-datos-planta-nacional/README.md) |
 
+## Tableros de otros módulos documentados aquí
+
+Tableros de seguimiento que en IAPOL están fuera de `Tableros de Monitoreo`, pero se documentan en esta carpeta con la misma estructura.
+
+| Tablero | Ruta funcional | Hojas publicadas | Documentación |
+|---|---|---:|---|
+| Gestión para la planeación y seguimiento al comité de vigilancia | `Home > Gestión para la planeación y seguimiento al comité de vigilancia` | 2 (9 en la versión sandbox) | [`gestion-planeacion-seguimiento-comite-vigilancia`](gestion-planeacion-seguimiento-comite-vigilancia/README.md) |
+
 ## Documentos comunes
 
 - [`documentacion-tecnica.md`](documentacion-tecnica.md): activos, fuentes, filtros, fórmulas y asuntos pendientes.
