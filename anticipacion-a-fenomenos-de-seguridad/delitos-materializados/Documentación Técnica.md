@@ -344,16 +344,16 @@ Lo primero es resistir la tentación de reprocesar a ciegas. Antes de disparar n
 
 - **Qué ambiente y región** (producción en us-east-1 siempre, pero confirmar).
 - **Fecha de corte, sigla, turno e ID de unidad** afectados. Si el usuario dice "no me aparecen los datos de ayer", recuerde que el procesamiento tiene 7 días de desfase.
-- **Dónde duele:** ¿es la API la que no responde, o es que no hay resultados en S3? Son problemas distintos.
+- **Dónde duele:** ¿es la API la que no responde, o es que no hay resultados en `pon-prod-delitos-materializados`? Son problemas distintos.
 - **Desde cuándo** y cuál fue la última respuesta correcta.
 - Si los tiene: `requestId` de Lambda, Query Execution ID de Athena o task ID de ECS.
 
 Con eso claro, siga las validaciones en este orden:
 
 1. **API:** comprobar `/health` y luego una consulta funcional.
-2. **Resultado:** verificar si existe el JSON consolidado o el unitario en S3.
+2. **Resultado:** verificar si existe el JSON consolidado o el unitario en `pon-prod-delitos-materializados`.
 3. **Coordinación:** revisar `resumen.json` de asignación global.
-4. **Procesamiento:** buscar errores en CloudWatch y en el prefijo de errores de S3.
+4. **Procesamiento:** buscar errores en CloudWatch y en el prefijo `utilidades/errores_delitos_materializados/` de `pon-prod-delitos-materializados`.
 5. **Entradas:** confirmar GeoJSON y disponibilidad de fuentes.
 6. **Infraestructura:** revisar throttling, timeout, concurrencia, tareas ECS y target health.
 
@@ -423,7 +423,7 @@ flowchart TD
 | ALB devuelve `502`/`503` | La tarea ECS se cayó, el target no está saludable, o un despliegue quedó a medias | Revisar Target Health en la consola del ALB, eventos del servicio ECS y logs en `/ecs/...` | Forzar nuevo deployment del servicio. Si coincide con un despliegue reciente, volver al commit estable. |
 | ALB devuelve `504` | La consulta se demoró más de 120s (idle timeout del ALB). Suele pasar cuando no hay consolidado y la API tiene que agregar muchos JSON unitarios | Buscar `Respuesta /bff/consultar: estado=... duracion=` en logs de la API | Verificar que existan consolidados para la sigla/turno. Si no, reprocesar. Evitar pedir muchas unidades sin consolidado. |
 | `401 Unauthorized` | Falta la cabecera `x-api-key`, la clave es incorrecta, o el caché quedó desactualizado tras una rotación | Logs: buscar `Petición sin API` o `API key inválida`. Verificar que el secreto en Secrets Manager tenga la clave correcta | Si rotaron la key: `POST /auth/refresh-key` (no requiere auth) o reiniciar la tarea ECS. Si la clave es incorrecta: corregir en el cliente. |
-| `404` pero los datos sí existen | Fecha/turno/sigla incorrectos en el request, o el ID de unidad no está cubierto por el procesamiento | Listar el prefijo en S3 para la combinación exacta. Revisar `unidades_no_encontradas` en la respuesta | Corregir el corte en el request. Si efectivamente falta, reprocesar la combinación. |
+| `404` pero los datos sí existen | Fecha/turno/sigla incorrectos en el request, o el ID de unidad no está cubierto por el procesamiento | Listar el prefijo en `pon-prod-delitos-materializados` para la combinación exacta (ver comando en 3.1). Revisar `unidades_no_encontradas` en la respuesta | Corregir el corte en el request. Si efectivamente falta, reprocesar la combinación. |
 | `422` | El body del request tiene tipos incorrectos (strings en vez de ints, campo faltante) | El cuerpo de la respuesta de FastAPI muestra exactamente qué campo falló | Corregir el payload. Fecha/turno/IDs deben ser enteros; `nivel_agregacion` acepta solo `"unidades"` o `"sigla"`. |
 | `500` al arrancar local | `USE_LOCAL_FILES=true` pero el directorio de `LOCAL_DATA_DIR` no existe | Log de inicialización muestra `Directorio local no existe:` | Crear el directorio o poner `USE_LOCAL_FILES=false`. |
 
@@ -431,8 +431,8 @@ flowchart TD
 
 | Síntoma | ¿Qué pasó? | Cómo verificar | Qué hacer |
 |---|---|---|---|
-| Orquestador responde OK pero no hay resultados | La invocación asíncrona fue aceptada (eso es lo que mide el "éxito"), pero el coordinador o las unidades fallaron por otro lado | Buscar errores en logs del procesador. Revisar `resumen.json` del coordinador. Listar prefijo de errores S3 | Identificar la causa aguas abajo primero. **No disparar otro orquestador masivo** hasta aislar una sigla/turno. |
-| `unidades_descubiertas_en_s3=0` | El GeoJSON predictivo aún no se publicó para esa fecha/sigla, o el prefijo está mal | Listar `PrediccionMdP/.../SIGLA/` en `pon-prod-ml-iapol` | Esperar a que se publique el GeoJSON. Si ya existe, verificar que la fecha y sigla coincidan. |
+| Orquestador responde OK pero no hay resultados | La invocación asíncrona fue aceptada (eso es lo que mide el "éxito"), pero el coordinador o las unidades fallaron por otro lado | Buscar errores en logs del procesador. Revisar `resumen.json` del coordinador. Listar prefijo `utilidades/errores_delitos_materializados/` en `pon-prod-delitos-materializados` | Identificar la causa aguas abajo primero. **No disparar otro orquestador masivo** hasta aislar una sigla/turno. |
+| `unidades_descubiertas_en_s3=0` | El GeoJSON predictivo aún no se publicó para esa fecha/sigla, o el prefijo está mal | Listar `s3://pon-prod-ml-iapol/PrediccionMdP/.../SIGLA/` | Esperar a que se publique el GeoJSON. Si ya existe, verificar que la fecha y sigla coincidan. |
 | `geojson_invalidos` no vacío | Algún GeoJSON está vacío, corrupto o tiene geometría que GeoPandas no puede leer | Campo del resumen del coordinador y excepción `GeoPandas` en logs | Corregir o regenerar el GeoJSON afectado. Reprocesar la sigla/turno después. |
 | `total_fuera_poligonos` alto | Muchos registros tienen coordenadas que no caen dentro de ningún polígono disponible | Comparar `unidades_objetivo` contra `unidades_descubiertas_en_s3` en el resumen | Si se ejecutó filtrada por unidad, los registros fuera de esos polígonos se descartan. Para diagnóstico, ejecutar la sigla completa. |
 | Query Athena `FAILED`/`CANCELLED` | Tabla o partición inexistente, SQL incompatible con el esquema, permiso IAM insuficiente, o bucket de salida inaccesible | Obtener el Query Execution ID del log y revisar `StateChangeReason` | Verificar Glue Catalog (tablas, particiones), permisos IAM y el bucket `pon-prod-athena-query-results-capas-adicionales`. |
@@ -447,7 +447,7 @@ flowchart TD
 
 | Síntoma | ¿Qué pasó? | Cómo verificar | Qué hacer |
 |---|---|---|---|
-| Hay unitarios pero no consolidado | Alguna unidad no dejó marcador, el lock de consolidación falló, o la consolidación misma falló | Revisar manifiesto, marcadores en `consolidacion/.../unidades/` y logs del consolidador | Reprocesar la sigla completa. Una ejecución filtrada por unidad nunca genera consolidado. |
+| Hay unitarios pero no consolidado | Alguna unidad no dejó marcador, el lock de consolidación falló, o la consolidación misma falló | Revisar manifiesto y marcadores en `s3://pon-prod-delitos-materializados/utilidades/asignacion_global/.../consolidacion/.../unidades/` y logs del consolidador | Reprocesar la sigla completa. Una ejecución filtrada por unidad nunca genera consolidado. |
 | Archivo de error existe pero el resultado está bien | Los errores históricos no se borran automáticamente | Comparar `LastModified` del error vs. del resultado | El objeto más reciente gana. No asumir fallo solo por la existencia del error. |
 | Datos aparecen con 7 días de atraso | Comportamiento normal del modo automático (`PREV_WINDOW=7`) | Verificar que el evento del orquestador sea `{}` | Si necesitan un corte más reciente, invocar con fecha explícita **después** de confirmar que el GeoJSON existe. |
 
@@ -749,12 +749,12 @@ Los buckets de datos no son creados por este stack. Si necesitan recuperar un ob
 
 El stack crea grupos de CloudWatch Logs y aprovecha las métricas que ECS, ALB y Lambda generan por defecto, pero **no define alarmas, dashboards, DLQ ni destinos de fallo asíncrono**. Esto quiere decir que hoy nadie recibe notificación automática si el procesamiento falla — hay que ir a mirar los logs.
 
-La retención de logs es de **7 días**. Después de ese plazo, los logs se pierden. Si necesitan investigar algo más viejo, los resúmenes y errores persisten en S3 (no tienen expiración configurada). Para cambiar la retención, modificar el stack CDK.
+La retención de logs es de **7 días**. Después de ese plazo, los logs se pierden. Si necesitan investigar algo más viejo, los resúmenes y errores persisten en `pon-prod-delitos-materializados` (no tienen expiración configurada). Para cambiar la retención, modificar el stack CDK.
 
 **En la práctica**, el monitoreo mínimo que debería hacer soporte todos los días es:
 
 1. Verificar que el orquestador se ejecutó: buscar la invocación de las 09:15 UTC en CloudWatch.
-2. Revisar que existan consolidados frescos para las siglas principales (MEBOG, etc.).
+2. Revisar que existan consolidados frescos en `pon-prod-delitos-materializados` para las siglas principales (MEBOG, etc.).
 3. Hacer un health check rápido: `curl -fsS https://materializados.ia.policia.gov.co/health`.
 
 ### 7.2 Señales que se deben vigilar
@@ -765,7 +765,7 @@ La retención de logs es de **7 días**. Después de ese plazo, los logs se pier
 | ECS API | tareas deseadas vs. activas, reinicios, CPU, memoria y eventos de deployment. |
 | Lambda orquestadora | `Errors`, `Duration`, `Throttles` e invocación diaria. |
 | Lambda procesadora | `Errors`, `Duration`, `Throttles`, `ConcurrentExecutions` y proximidad a 900 s. |
-| S3 funcional | aparición diaria de resúmenes y consolidados para la fecha esperada. |
+| S3 (`pon-prod-delitos-materializados`) | aparición diaria de resúmenes y consolidados para la fecha esperada. |
 | Fuentes | proporción de ramas con `estado_fuente=no_disponible`. |
 | Bedrock | errores de invocación, throttling, validación de JSON e intentos agotados. |
 | Datos | `geojson_invalidos`, `errores_invocacion`, `total_sin_coordenadas`, `total_fuera_poligonos` y unidades faltantes. |
@@ -906,7 +906,7 @@ Si el JSON fue generado con una o más fuentes `no_disponible`:
 
 - causa identificada y registrada;
 - health check y consulta funcional correctos;
-- procesamiento validado en S3, no solo despachado;
+- procesamiento validado en `pon-prod-delitos-materializados`, no solo despachado;
 - consolidado presente y actualizado;
 - fuentes críticas en estado válido;
 - ausencia de nuevos errores/throttles durante la observación acordada;
@@ -1083,13 +1083,13 @@ cd ../orquestador
 ## 10. Preguntas frecuentes de soporte
 
 **¿Por qué los datos aparecen con 7 días de atraso?**
-Es el comportamiento normal. El orquestador procesa `hoy - 7 días` para dar tiempo a que todas las fuentes (GeoJSON predictivo, SIEDCO, etc.) estén disponibles. Si necesitan un corte más reciente, se puede invocar el orquestador con fecha explícita, pero primero hay que confirmar que el GeoJSON para esa fecha ya existe en S3.
+Es el comportamiento normal. El orquestador procesa `hoy - 7 días` para dar tiempo a que todas las fuentes (GeoJSON predictivo, SIEDCO, etc.) estén disponibles. Si necesitan un corte más reciente, se puede invocar el orquestador con fecha explícita, pero primero hay que confirmar que el GeoJSON para esa fecha ya existe en `pon-prod-ml-iapol`.
 
 **¿Qué pasa si una fuente de datos está caída?**
 El procesamiento no se detiene. La fuente se marca como `no_disponible` en el JSON y las demás fuentes se procesan normalmente. Cuando la fuente se recupere, se puede reprocesar la sigla/turno para incorporar los datos faltantes. Lo importante es que soporte **no reporte como "cero eventos"** lo que en realidad es una fuente caída.
 
 **¿Por qué hay diferencia entre la respuesta para una unidad y para la sigla completa?**
-Cuando se consulta una unidad individual, la API busca su JSON en S3 directamente. Cuando se consulta una sigla (o varias unidades), la API intenta usar el consolidado primero; si no existe, agrega los JSON unitarios en memoria. El consolidado puede tener información adicional como el contexto histórico y el análisis de Bedrock a nivel de sigla.
+Cuando se consulta una unidad individual, la API busca su JSON en `pon-prod-delitos-materializados` directamente. Cuando se consulta una sigla (o varias unidades), la API intenta usar el consolidado primero; si no existe, agrega los JSON unitarios en memoria. El consolidado puede tener información adicional como el contexto histórico y el análisis de Bedrock a nivel de sigla.
 
 **¿Puedo reprocesar solo una unidad que falló?**
 Sí, usando el coordinador con `ids_unidades_objetivo` (ver sección 8.3). Pero esto **no actualiza el consolidado** de la sigla. Si necesitan que el tablero refleje los cambios, hay que reprocesar la sigla completa.
@@ -1176,7 +1176,7 @@ Ninguna de estas impide operar el módulo, pero hay que tenerlas en cuenta:
 | Área | Limitación | Impacto |
 |---|---|---|
 | Observabilidad | No hay alarmas, dashboard operacional, DLQ ni destino de fallos asíncronos definidos en CDK | Las fallas de procesamiento no se detectan automáticamente. Soporte tiene que revisar logs proactivamente. |
-| Logs | Retención de solo 7 días | Investigaciones de más de una semana requieren los resúmenes/errores en S3. |
+| Logs | Retención de solo 7 días | Investigaciones de más de una semana requieren los resúmenes/errores en `pon-prod-delitos-materializados`. |
 | Seguridad | `/auth/refresh-key` no requiere API key | Cualquiera con acceso de red puede limpiar el caché de autenticación. |
 | Seguridad | CORS permite todos los orígenes (`*`) | En producción debería limitarse a los dominios del frontend. |
 | Seguridad | `/docs`, `/redoc` y `/openapi.json` expuestos sin auth | Cualquiera puede ver el contrato de la API. |
