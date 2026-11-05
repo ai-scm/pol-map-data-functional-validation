@@ -56,6 +56,6 @@ El inventario registra además entradas no visibles por unidad (por ejemplo `Com
 
 ## 7. Hallazgos y notas
 
-- El tablero `02. Comparativo Delictivo (Datos crudos)` comparte fuente con las capas SIEDCO del mapa: ambos leen la vista de Athena `vw_delitos_corregido_schema_temporal`. La documentación de la capa está en [`SIEDCO`](../anticipacion-a-fenomenos-de-seguridad/mapa-de-anticipacion-a-fenomenos-de-seguridad/Modulos/Mapa/FuentesInternas/SIEDCO/README.md).
+- El tablero `02. Comparativo Delictivo (Datos crudos)` comparte fuente con las capas SIEDCO del mapa: ambos leen la vista de Athena `vw_delitos_corregido_schema_temporal`. La documentación de la capa está en [`SIEDCO`](../anticipacion-a-fenomenos-de-seguridad/mapa-de-anticipacion-a-fenomenos-de-seguridad/Modulos/Mapa/13-fuentes-internas/SIEDCO/README.md).
 - Los submódulos 01 y 03 usan otra fuente (`mdp_limpio_v2.1`), por lo que sus cifras no son comparables directamente con las del submódulo 02.
 - El orden del módulo en el menú no se verificó; se deja `Pendiente por confirmar`.
