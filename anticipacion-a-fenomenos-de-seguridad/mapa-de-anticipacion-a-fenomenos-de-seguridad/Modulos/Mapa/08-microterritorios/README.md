@@ -13,6 +13,10 @@
 | Evidencia | Código de XCrime publicado en S3 el 2026-10-29; [alcance y versión](../evidencia-validacion-2026-11-03.md) |
 | Prueba funcional en la aplicación | No ejecutado en esta revisión |
 
+## Documentación técnica
+
+Consultar la [documentación técnica y guía de soporte de Microterritorios](Documentación%20Técnica.md): arquitectura, incidentes, configuración, integraciones, despliegue, monitoreo, recuperación y ejecución local.
+
 ## 2. Descripción
 
 Permite dibujar y guardar un microterritorio con su caracterización, consultar los guardados, visualizarlos, editar sus datos o geometría y eliminarlos desde las acciones disponibles.
