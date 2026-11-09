@@ -21,3 +21,4 @@ SELECT ROUND(identificacion) AS identificacion,
        funcionario
 FROM "pon-prod-raw-sivicc"."usr_mnvcc.vm_personal_agrupado"
 WHERE ROUND(identificacion) IN (1234567890, 9876543210);   -- lista armada en tiempo de ejecución
+-- changes

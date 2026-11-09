@@ -33,12 +33,12 @@ Módulo de anticipación a fenómenos de seguridad, con vistas por demanda y rep
 
 | # | Submódulo | Estado | Responsable | Fecha de actualización | Documentado |
 |---|---|---|---|---|---|
-| 01 | Anticipación por Demanda | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
+| 01 | Anticipación por Demanda | Verificación | Cristian Sanchez | 2026-11-09 | [x] |
 | 02 | Mapa de Anticipación a Fenómenos de Seguridad | Faltante | Pendiente por confirmar | Pendiente por confirmar | [ ] |
 
 ## 6. Progreso del módulo
 
-- [ ] 01. Anticipación por Demanda
+- [x] 01. Anticipación por Demanda
 - [ ] 02. Mapa de Anticipación a Fenómenos de Seguridad
 
 ## 7. Hallazgos y notas
