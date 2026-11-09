@@ -40,6 +40,7 @@ Una medida sin nivel explícito se evalúa en el contexto de filtros del visual.
 - [Tablero Monitoreo Pedidos SECAD v3.0](tablero-monitoreo-pedidos-secad-v3-0/documentacion-tecnica.md)
 - [Última actualización de datos migrados](ultima-actualizacion-de-datos-migrados/documentacion-tecnica.md)
 - [Control de ingesta de datos de planta nacional](tablero-de-control-ingesta-datos-planta-nacional/documentacion-tecnica.md)
+- [Sistema Estadístico de Gestión Territorial](sistema-estadistico-de-gestion-territorial/documentacion-tecnica.md): fuentes y procesos de actualización verificados el 2026-10-13.
 
 ## Procedimiento de conciliación
 

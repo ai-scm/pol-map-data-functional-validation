@@ -24,7 +24,7 @@ No se versionan identificadores técnicos del dashboard ni URL internas; la ruta
 | 4 | 04:00 a. m. | Conjunto de datos de Quick (SPICE) | Importa la vista y agrega las columnas calculadas `tipo_unidad` y `cai`. |
 | 5 | En línea | Dashboard `pon-prod-ied-comparativo-delictivo` | Aplica filtros, parámetros y medidas. |
 
-La misma vista alimenta las capas SIEDCO del mapa (job de las 04:30 a. m.). Ver [`SIEDCO`](../../anticipacion-a-fenomenos-de-seguridad/mapa-de-anticipacion-a-fenomenos-de-seguridad/Modulos/Mapa/FuentesInternas/SIEDCO/README.md).
+La misma vista alimenta las capas SIEDCO del mapa (job de las 04:30 a. m.). Ver [`SIEDCO`](../../anticipacion-a-fenomenos-de-seguridad/mapa-de-anticipacion-a-fenomenos-de-seguridad/Modulos/Mapa/13-fuentes-internas/SIEDCO/README.md).
 
 ## Grano y campos principales
 
@@ -258,7 +258,7 @@ N06 usa una regla propia: se toma como unidad correcta de cada municipio la que 
 - 09:56 a. m.: se restauró `raw_data_siedco_full_delitos` desde la copia del pipeline incremental (2.410.854 registros, hechos hasta el 2026-10-07).
 - Hacia las 10:00 a. m.: se recargó SPICE con 2.410.854 registros.
 
-El detalle del incidente y del control agregado al job de carga está en la sección 12 de [`SIEDCO`](../../anticipacion-a-fenomenos-de-seguridad/mapa-de-anticipacion-a-fenomenos-de-seguridad/Modulos/Mapa/FuentesInternas/SIEDCO/README.md). Mientras la Policía no recargue la tabla en Oracle, el tablero no recibe datos nuevos.
+El detalle del incidente y del control agregado al job de carga está en la sección 12 de [`SIEDCO`](../../anticipacion-a-fenomenos-de-seguridad/mapa-de-anticipacion-a-fenomenos-de-seguridad/Modulos/Mapa/13-fuentes-internas/SIEDCO/README.md). Mientras la Policía no recargue la tabla en Oracle, el tablero no recibe datos nuevos.
 
 ## Reglas de conciliación recomendadas
 
