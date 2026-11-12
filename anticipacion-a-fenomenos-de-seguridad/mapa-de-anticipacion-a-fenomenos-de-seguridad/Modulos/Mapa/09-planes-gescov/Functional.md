@@ -21,7 +21,8 @@ Módulo que permite delimitar y gestionar microterritorios a nivel de sigla y su
 2. Abrir el módulo `Anticipación a Fenómenos de Seguridad`.
 3. Seleccionar el submódulo `Mapa de Anticipación a Fenómenos de Seguridad`.
 4. Ingresar a `Mapa`.
-5. Hacer clic en el modulo `Microterritorios`.
+5. Seleccionar unidad
+6. Hacer clic en el modulo `Planes Gescov`.
 
 <p align="center">
   <img src="Imgs/mod.png" width="300">
@@ -29,40 +30,25 @@ Módulo que permite delimitar y gestionar microterritorios a nivel de sigla y su
 
 - Ruta resumida:
 
-`Menú principal > Anticipación a Fenómenos de Seguridad > Mapa de Anticipación a Fenómenos de Seguridad > Modulo Consulta Integrada`
+`Menú principal > Anticipación a Fenómenos de Seguridad > Mapa de Anticipación a Fenómenos de Seguridad > Seleccionar sigla > Modulo Planes Gescov`
 
 ## 4. Activación de la capa
 
 1. Seleccionar una sigla o unidad hija.
-2. Abrir el módulo Microterritorioss
-3. Activar la opción Dibujar Microterritorio.
-4. Dibujar y cerrar el polígono sobre el mapa para delimitar el área.
+2. Abrir el módulo Planes Gescov
+3. Activar la opción planes programados y/o planes en ejecución.
+
 
 <p align="center">
-  <img src="Imgs/dibujo.png" width="600">
+  <img src="Imgs/capas.png" width="600">
 </p>
 
-5. al dar enter 
-6. Ingresar el nombre y seleccionar los delitos y comportamientos, clase de factores, factores de riesgo y capacidades institucionales.
-7. Definir las fechas de inicio y fin del periodo de análisis.
-8. Adjuntar, opcionalmente, un documento de percepción de seguridad en formato PDF, DOC o DOCX.
-Hacer clic en Guardar.
+5. Al activar las capas se visualizan iconos correspondientes a los planes programados y en ejecución sobre el mapa
+6. Dar click en uno de los iconos despliega un pop up con la información del plan gescov, la información del plan en ejecución incluye los antecedentes consultados durante la ejecución
 
 <p align="center">
-  <img src="Imgs/form.png" width="200">
+  <img src="Imgs/programados.png" width="300">
 </p>
-
-9. Activar Ver Microterritorios Guardados.
-10. Seleccionar un microterritorio del listado para visualizar sus límites y consultar su información y los 
-análisis disponibles.
-
-<p align="center">
-  <img src="Imgs/micro.png" width="600">
-</p>
-
-11. 
-
-
 
 ## 5. Parámetros y filtros de prueba
 
