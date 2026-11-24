@@ -5,15 +5,15 @@
 | Campo | Valor |
 |---|---|
 | ID | POL-MAPA-005 |
-| Filtros | Porcentaje de Permanencia |
-| Frecuencia de actualización | diaria |
+| Filtros | Zonas de Atención actuales |
+| Frecuencia de actualización | null |
 | Hora de carga del Data Lake | null |
 | Última actualización documento | 24/11/2026 |
 | Responsable | null |
 
 ## 2. Descripción
 
-Filtro que permite visualizar los porcentajes de permanencia de comandantes, patrullas de vigilancia y demas policias asignados a una zona de atención, este porcentaje tambien es posible visualizarlo en formato de horas y minutos.
+Filtro que permite visualizar las zonas de atención definidas para cada unidad (SIGLA, Estación, Subestación o CAI), se identifica por divisiones con lineas amarillas.
 
 ## 3. Ruta de Acceso y activación de la capa
 
@@ -21,16 +21,13 @@ Filtro que permite visualizar los porcentajes de permanencia de comandantes, pat
 2. Abrir el módulo `Anticipación a Fenómenos de Seguridad`.
 3. Seleccionar el submódulo `Mapa de Anticipación a Fenómenos de Seguridad`.
 4. Ingresar a `Mapa`.
-5. Seleccionar una unidad hija (Estación, sub estación o CAI)
-6. seleccionar un turno especifico finalizado (minimo dia anterior)
-7. activar o desactivar filtros por total, comandantes, patrullas u otros:
+5. Seleccionar una unidad (Sigla, Estación, subestación o CAI)
+6. Activar o desactivar filtro 'Zonas de atención actuales'
 
 <p align="center">
-  <img src="Imgs/filtros.png" width="300">
+  <img src="Imgs/filtro.png" width="600">
 </p>
 
-8. Seleccionar visualización por porcentaje o por horas  minutos.
-9. Validar la distribución de permanencia por porcentaje o por tiempo sobre el mapa.
 
 
 `Menú principal > Anticipación a Fenómenos de Seguridad > Mapa de Anticipación a Fenómenos de Seguridad > Modulo Filtros`
